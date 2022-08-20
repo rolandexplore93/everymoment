@@ -3,13 +3,14 @@ const Schema = mongoose.Schema;
 
 const postMessageSchema = new Schema({
     title: {
-        type: String,
+        type: String
     },
     message: {
         type: String,
     },
     postCreator: {
         type: String,
+        default: "Orobola Roland"
     },
     tags: {
         type: []
@@ -19,6 +20,7 @@ const postMessageSchema = new Schema({
     },
     likeCount: {
         type: Number,
+        default: 0
     },
 }, {timestamps: true})
 
