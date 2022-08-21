@@ -1,8 +1,13 @@
-import React from 'react'
+import React from 'react';
+import Form from './components/Form/Form';
+import Posts from './components/Posts/Posts';
 
 const App = () => {
     return (
-        <div>App</div>
+        <div>
+            <Posts />
+            <Form />
+        </div>
     )
 }
 
