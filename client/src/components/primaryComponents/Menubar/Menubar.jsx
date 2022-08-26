@@ -4,10 +4,10 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 const Menubar = () => {
   return (
-    <div>
-      <div>
-        <p>Share Your Moments</p>
-        <FontAwesomeIcon icon={faCirclePlus} />
+    <div className="Menubar">
+      <div className="Menubar__title">
+        <p className="Menubar__name">Share Your Moments</p>
+        <FontAwesomeIcon className="Menubar__icon" icon={faCirclePlus} />
       </div>
     </div>
   );
