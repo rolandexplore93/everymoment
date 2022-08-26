@@ -4,8 +4,8 @@ import { faEllipsis, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-ico
 
 const Posts = () => {
   return (
-    <div className="Posts">
-        <div className="Posts__card">
+    <div className="posts">
+        <div className="posts__card">
             <div className="posts__card-owner">
                 <div className="posts__card-author-cover">
                     <p className="posts__card-author">Roland</p>
