@@ -2,7 +2,6 @@
     background-color: #ddd;
     padding: 10px;
     border-radius: 5px;
-    // width: 500px;
     margin: auto;
     color: rgb(13, 13, 138);
 
@@ -12,10 +11,9 @@
         align-items: center;
         gap: 5px;
         font-size: 24px;
-        border: 1px solid red;
         
         & > * {
-            border: 1px solid blue;
+            // border: 1px solid blue;
         }
     }
     

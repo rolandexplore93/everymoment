@@ -1,11 +1,44 @@
 .form {
     padding: 20px;
-    background: #fff;
+    background: #eee;
     width: 350px;
     border-radius: 5px;
+    margin-top: 30px;
 
-    &__title {
+    &__title-tag {
         text-align: center;
         margin-bottom: 10px;
+        width: 100%;
+    }
+
+    &__input {
+        width: 100%;
+        padding: 5px;
+        background: #eee;
+        outline: 0;
+        border: 1px solid #ccc;
+    }
+
+    &__creator, &__title, &__message, &__tags, &__file, &__submit {
+        margin-bottom: 10px;
+    }
+
+    &__submit, &__cancel {
+        border-radius: 3px;
+        padding: 5px;
+        cursor: pointer;
+        color: #eee;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    
+    &__submit {
+        background: blue;
+        border: 1px solid blue;
+    }
+
+    &__cancel {
+        background: tomato;
+        border: 1px solid tomato;
     }
 }
