@@ -1,12 +1,8 @@
 const postReducer = (posts = [], action) => {
     switch (action.type) {
-        case 'FETCH_ALL': return {
-            posts: posts + 1
-        }
+        case 'FETCH_ALL': return action.payload
 
-        case 'CREATE': return {
-            posts: posts
-        }
+        case 'CREATE': return posts
             
         default: return posts
     }

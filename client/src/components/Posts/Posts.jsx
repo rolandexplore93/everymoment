@@ -1,8 +1,12 @@
 import "./Posts.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 const Posts = () => {
+    const posts = useSelector((state) => state.posts)
+    console.log(posts)
+
   return (
     <div className="posts">
         <div className="posts__card">
