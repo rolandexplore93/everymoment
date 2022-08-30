@@ -1,8 +1,9 @@
 import './Form.scss';
 
 const Form = () => {
+
   return (
-    <div className='form'>
+    <div className='form' onSubmit={handleSubmit}>
       <p className='form__title-tag'>Editing "<span>Title</span>"</p>
       <div className='form__creator'>
         <input type="text" className='form__input' placeholder='Creator' />
