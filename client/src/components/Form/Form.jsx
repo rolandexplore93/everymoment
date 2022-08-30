@@ -1,19 +1,24 @@
 import './Form.scss';
-import FileBase from 'react-file-base64'
+import FileBase from 'react-file-base64';
 import { useState } from 'react';
+import * as api from '../../api'
+import { useDispatch } from 'react-redux';
+import { createPost } from '../../services/actions/posts';
 
 const Form = () => {
+  const dispatch = useDispatch();
   const [postData, setPostData] = useState({
     creator: '',
     title: '',
     message: '',
     tags: '',
     selectedFile: ''
-  })
-  console.log(postData)
+  });
 
-  const handleSubmit = () => {
-    console.log('submit')
+  const handleSubmit = (e) => {
+    console.log('submit');
+    e.preventDefault()
+    dispatch(createPost(postData))
 
   };
   const clear = () => {
