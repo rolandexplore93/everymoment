@@ -8,14 +8,14 @@ const postMessageSchema = new Schema({
     message: {
         type: String,
     },
-    postCreator: {
+    creator: {
         type: String,
         default: "Orobola Roland"
     },
     tags: {
         type: []
     },
-    filesUpload: {
+    selectedFile: {
         type: String,
     },
     likeCount: {
@@ -24,6 +24,6 @@ const postMessageSchema = new Schema({
     },
 }, {timestamps: true})
 
-const PostMessage = mongoose.model('PostMessage', postMessageSchema);
+const PostMessage = mongoose.model('Post', postMessageSchema);
 
 export default PostMessage
