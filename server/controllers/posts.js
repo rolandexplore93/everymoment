@@ -25,8 +25,8 @@ export const createPost = async (req, res) => {
 export const deleteAllPosts = async (req, res) => {
     try {
         const allPosts = await PostMessage.remove({});
-        res.status(200).json(allPosts)
+        res.status(200).json({ message: 'All posts deleted from the database', posts: allPosts })
     } catch (error){
-        console.log(error)
+        res.status(400).json({ message: error.message})
     }
 };
