@@ -1,9 +1,10 @@
 import './Form.scss';
 import FileBase from 'react-file-base64';
 import { useState } from 'react';
-import * as api from '../../api'
 import { useDispatch } from 'react-redux';
 import { createPost } from '../../services/actions/posts';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(createPost(postData))
-
+    toast('Posts created successfully!')
   };
   const clear = () => {
     setPostData({
@@ -97,6 +98,16 @@ const Form = () => {
       <div className='form__cancelling'>
         <button className='form__input form__cancel' onClick={clear}>Cancel</button>
       </div>
+
+    <ToastContainer position="top-right"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover/>
     </div>
   )
 }

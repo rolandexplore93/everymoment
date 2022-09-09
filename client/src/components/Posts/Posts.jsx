@@ -7,7 +7,6 @@ import moment from 'moment';
 const Posts = () => {
     const posts = useSelector((state) => state.posts)
     console.log(posts)
-
     
     return (
         <div className="posts">
