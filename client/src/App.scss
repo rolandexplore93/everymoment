@@ -5,8 +5,16 @@
 }
 
 .App {
-    background-image: url('./assets/images/background-image.jpg');
-    height: 100%;
+    // background-image: url('./assets/images/background-image.jpg');
+    height: 100vh;
     width: 100vw;
-    padding: 30px 200px;
+    padding: 30px 100px;
+
+    &__partition {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        // grid-template-rows: auto;
+        // border: 1px solid red;
+
+    }
 }

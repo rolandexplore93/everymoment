@@ -9,7 +9,8 @@ import { getPost } from './services/actions/posts';
 
 const App = () => {
     const dispatch = useDispatch();
-    const [loader, setLoader] = useState(true)
+    const [loader, setLoader] = useState(true);
+    const [currentId, setCurrentId] = useState(null)
 
     useEffect(() => {
         dispatch(getPost())
@@ -23,13 +24,15 @@ const App = () => {
                     <Spinner />
                     { setTimeout(() => {
                         setLoader(false)
-                    }, 2000) }
+                    }, 500) }
                 </div>
             ) : (
                 <div className='App'>
                     <Menubar />
-                    <Form />
-                    <Posts />
+                    <div className='App__partition'>
+                        <Posts className="App__partition__posts" setCurrentId={setCurrentId} />
+                        <Form className="App__partition__form" currentId={currentId} setCurrentId={setCurrentId} />
+                    </div>
                 </div>
             )}
 

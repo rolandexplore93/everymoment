@@ -2,11 +2,11 @@ import './Form.scss';
 import FileBase from 'react-file-base64';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createPost } from '../../services/actions/posts';
+import { createPost, editPost } from '../../services/actions/posts';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Form = () => {
+const Form = ({currentId, setCurrentId}) => {
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
     creator: '',
@@ -16,11 +16,18 @@ const Form = () => {
     selectedFile: ''
   });
 
+  
   const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(createPost(postData))
-    toast('Posts created successfully!')
+    if(currentId){
+      dispatch(editPost(currentId, postData))
+      toast('Posts updated...')
+    } else {
+      dispatch(createPost(postData))
+      toast('Posts created successfully!')
+  
+    }
   };
+
   const clear = () => {
     setPostData({
       creator: '',
@@ -32,7 +39,7 @@ const Form = () => {
   };
 
   return (
-    <div className='form'>
+    <div className='form' id='form'>
       <p className='form__title-tag'>Editing "<span name="title">Title</span>"</p>
       <div className='form__creator'>
         <input type="text" className='form__input'

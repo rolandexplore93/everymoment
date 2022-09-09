@@ -1,23 +1,36 @@
 import "./Posts.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
+import { editPost } from "../../api";
 
-const Posts = () => {
-    const posts = useSelector((state) => state.posts)
+const Posts = ({setCurrentId}) => {
+    const posts = useSelector((state) => state.posts);
+    const dispatch = useDispatch();
     console.log(posts)
+
+    const handlePostEdit = () => {
+        // dispatch(editPost())
+        setCurrentId(posts._id)
+
+    }
     
     return (
-        <div className="posts">
+        <div className="posts" >
             {posts.map((post) => (
-                <div className="posts__card" key={post._id}>
+                <div className="posts__card" key={post._id} setCurrentId={setCurrentId}>
                     <div className="posts__card-owner">
-                        <div className="posts__card-author-cover">
-                            <p className="posts__card-author">{post.creator}</p>
-                            <FontAwesomeIcon className="posts__card-ellipsis" icon={faEllipsis} />
+                        <img className="posts__card-picture" src={post.selectedFile} alt="uploaded-pics" />
+                        <div className="posts__card-position">
+                            <div className="posts__card-author-cover">
+                                <p className="posts__card-author">{post.creator}</p>
+                                <FontAwesomeIcon className="posts__card-ellipsis" icon={faEllipsis} 
+                                    onClick={handlePostEdit}
+                                />
+                            </div>
+                            <p className="posts__card-time">{moment(post.createdAt).fromNow()}</p>
                         </div>
-                        <p className="posts__card-time">{moment(post.createdAt).fromNow()}</p>
                     </div>
                     <div className="posts__card-content">
                         <div className="posts__card-tags">Tags: <span>{post.tags.map((tag) => `#${tag} `)}</span></div>
