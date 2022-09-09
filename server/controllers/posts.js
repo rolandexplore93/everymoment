@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import PostMessage from "../models/postMessage.js"
 
 export const getPosts = async (req, res) => {
@@ -24,14 +25,11 @@ export const createPost = async (req, res) => {
 
 export const editPost = async (req, res) => {
     const _id = req.params.id;
-    const {title, message, creator, tags, selectedFile, likeCount} = req.body
+    const post = req.body
 
-    try {
-        const post = await PostMessage.updateOne({_id}, {$set: {title, message, creator, tags, selectedFile, likeCount}})
-        res.status(200).json({message: 'Post updated...', post})
-    } catch (error) {
-        res.status(400).json({ message: error.message})
-    }
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Post id not found');
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true })
+    res.status(200).json({message: 'Post updated...', updatedPost})
 }
 
 export const deleteAllPosts = async (req, res) => {
