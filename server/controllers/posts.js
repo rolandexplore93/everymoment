@@ -22,9 +22,21 @@ export const createPost = async (req, res) => {
     }
 }
 
+export const editPost = async (req, res) => {
+    const _id = req.params.id;
+    const {title, message, creator, tags, selectedFile, likeCount} = req.body
+
+    try {
+        const post = await PostMessage.updateOne({_id}, {$set: {title, message, creator, tags, selectedFile, likeCount}})
+        res.status(200).json({message: 'Post updated...', post})
+    } catch (error) {
+        res.status(400).json({ message: error.message})
+    }
+}
+
 export const deleteAllPosts = async (req, res) => {
     try {
-        const allPosts = await PostMessage.remove({});
+        const allPosts = await PostMessage.deleteMany({});
         res.status(200).json({ message: 'All posts deleted from the database', posts: allPosts })
     } catch (error){
         res.status(400).json({ message: error.message})
