@@ -30,8 +30,8 @@ const App = () => {
                 <div className='App'>
                     <Menubar />
                     <div className='App__partition'>
-                        <Posts className="App__partition__posts" setCurrentId={setCurrentId} />
-                        <Form className="App__partition__form" currentId={currentId} setCurrentId={setCurrentId} />
+                        <Posts className="App__partition__posts" setcurrentid={setCurrentId} />
+                        <Form className="App__partition__form" currentId={currentId} setcurrentid={setCurrentId} />
                     </div>
                 </div>
             )}

@@ -3,23 +3,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
-import { editPost } from "../../api";
+// import { editPost } from "../../api";
 
-const Posts = ({setCurrentId}) => {
+const Posts = ({ setcurrentid }) => {
     const posts = useSelector((state) => state.posts);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     console.log(posts)
 
     const handlePostEdit = () => {
         // dispatch(editPost())
-        setCurrentId(posts._id)
-
+        alert('Yes')
+        setcurrentid(posts._id)
     }
     
     return (
         <div className="posts" >
             {posts.map((post) => (
-                <div className="posts__card" key={post._id} setCurrentId={setCurrentId}>
+                <div className="posts__card" key={post._id}>
                     <div className="posts__card-owner">
                         <img className="posts__card-picture" src={post.selectedFile} alt="uploaded-pics" />
                         <div className="posts__card-position">

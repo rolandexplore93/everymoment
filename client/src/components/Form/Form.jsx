@@ -1,12 +1,12 @@
 import './Form.scss';
 import FileBase from 'react-file-base64';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createPost, editPost } from '../../services/actions/posts';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Form = ({currentId, setCurrentId}) => {
+const Form = ({currentId, setcurrentid}) => {
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
     creator: '',
@@ -15,16 +15,22 @@ const Form = ({currentId, setCurrentId}) => {
     tags: '',
     selectedFile: ''
   });
+  const post = useSelector((state) => currentId ? state.posts.find(p => p._id === currentId) : null );
+  console.log(post)
 
-  
+  useEffect(() => {
+    if (post) setPostData(post);
+    // post && setPostData(post)
+  }, [post])
+
   const handleSubmit = (e) => {
+    e.preventDefault()
     if(currentId){
       dispatch(editPost(currentId, postData))
-      toast('Posts updated...')
+      // toast('Posts updated...')
     } else {
       dispatch(createPost(postData))
       toast('Posts created successfully!')
-  
     }
   };
 
