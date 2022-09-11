@@ -4,11 +4,12 @@ import { faEllipsis, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-ico
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
 import { deletePost } from "../../services/actions/posts";
+import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 
 const Posts = ({ currentId, setcurrentid }) => {
     const posts = useSelector((state) => state.posts);
-
     const dispatch = useDispatch();
     console.log(posts);
 
@@ -41,15 +42,17 @@ const Posts = ({ currentId, setcurrentid }) => {
                             <button className="posts__card-delete">
                                 <FontAwesomeIcon className="posts__card-delete-post" icon={faTrash}
                                     onClick={() => {
-                                        window.confirm("Are you sure you want to delete this post?") && dispatch(deletePost(post._id));
-                                        alert('Post deleted')
+                                        if (window.confirm("Are you sure you want to delete this post?")){
+                                            dispatch(deletePost(post._id));
+                                            toast("Post deleted successfully")
+                                        }
+                                            
                                     }}
                                 />
                             </button>
                         </div>
                     </div>
                 </div>
-
             ))}
         </div>
 

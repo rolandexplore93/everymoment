@@ -3,15 +3,14 @@ import FileBase from 'react-file-base64';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, editPost } from '../../services/actions/posts';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const Form = ({currentId, setcurrentid}) => {
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
   const post = useSelector((state) => currentId ? state.posts.find(p => p._id === currentId) : null );
-  // console.log(post)
-  console.log(currentId)
+
   useEffect(() => {
     post && setPostData(post);
   }, [post])
@@ -100,15 +99,7 @@ const Form = ({currentId, setcurrentid}) => {
         <button className='form__input form__cancel' onClick={clear}>Cancel</button>
       </div>
 
-    <ToastContainer position="top-right"
-      autoClose={2000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover/>
+    
     </div>
   )
 }

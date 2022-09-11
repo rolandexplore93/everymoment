@@ -6,6 +6,8 @@ import Posts from './components/Posts/Posts';
 import Menubar from './components/primaryComponents/Menubar/Menubar';
 import Spinner from './components/primaryComponents/Spinner/Spinner';
 import { getPost } from './services/actions/posts';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -28,6 +30,16 @@ const App = () => {
                 </div>
             ) : (
                 <div className='App'>
+                    <ToastContainer position="top-right"
+                        autoClose={1000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                    />
                     <Menubar />
                     <div className='App__partition'>
                         <Posts className="App__partition__posts" setcurrentid={setCurrentId} />
