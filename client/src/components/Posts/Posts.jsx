@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
 import { deletePost, likePost } from "../../services/actions/posts";
 import { toast } from 'react-toastify';
+import images from "../../assets/images";
 // import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -19,8 +20,13 @@ const Posts = ({ currentId, setcurrentid }) => {
             {posts.map((post) => (
                 <div className="posts__card" key={post._id}>
                     <div className="posts__card-owner">
-                        <img className="posts__card-picture" src={post.selectedFile} alt="uploaded-pics" />
-                        <div className="posts__card-position">
+                        {/* <img className={post.selectedFile ? 'posts__card-picture' : ''} src={post.selectedFile} alt="uploaded-pics" /> */}
+                        {post.selectedFile ? (
+                            <img className='posts__card-picture' src={post.selectedFile} alt="uploaded-pics" />
+                        ) : (
+                            <img className='posts__card-picture' src={images.heart} alt="uploaded-pics" />
+                        )}
+                        <div className="posts__card-about">
                             <div className="posts__card-author-cover">
                                 <p className="posts__card-author">{post.creator}</p>
                                 <FontAwesomeIcon className="posts__card-ellipsis" icon={faEllipsis} 
@@ -36,12 +42,9 @@ const Posts = ({ currentId, setcurrentid }) => {
                         <p className="posts__card-text">{post.message}</p>
                         <div className="posts__card-decision">
                             <button className="posts__card-like"
-                                onClick={() => {
-                                    console.log('working')
-                                    dispatch(likePost(post._id))
-                                }}
+                                onClick={() => dispatch(likePost(post._id))}
                             >
-                                <FontAwesomeIcon className="posts__card-like-post" icon={faThumbsUp} />
+                                <FontAwesomeIcon className="posts__card-like-post" icon={faThumbsUp} /> &nbsp;
                                 <span className="posts__card-count">{post.likeCount}</span>
                             </button>
                             <button className="posts__card-delete">
