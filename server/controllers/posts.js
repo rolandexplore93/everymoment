@@ -29,7 +29,24 @@ export const editPost = async (req, res) => {
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Post id not found');
     const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true })
+    if (updatedPost === null) return res.status(404).json({message: `Post id:${_id} doesn't exit in the database.`});
     res.status(200).json({message: 'Post updated...', updatedPost})
+}
+
+export const deletePost = async (req, res) => {
+    const {id: _id} = req.params;
+    const post = req.body
+
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Invalid post id');
+
+    try {
+        const deletedPost = await PostMessage.findByIdAndDelete(_id);
+        if (deletedPost === null) return res.status(404).json({message: `Post id:${_id} doesn't exit in the database.`});
+        res.status(200).json({message: `Post id:${_id} deleted from the database.`});
+    } catch (error) {
+        res.status(404).json({message: error.message});
+    }
+
 }
 
 export const deleteAllPosts = async (req, res) => {
