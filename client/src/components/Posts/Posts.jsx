@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
-import { deletePost } from "../../services/actions/posts";
+import { deletePost, likePost } from "../../services/actions/posts";
 import { toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
@@ -35,9 +35,14 @@ const Posts = ({ currentId, setcurrentid }) => {
                         <h2 className="posts__card-title">{post.title}</h2>
                         <p className="posts__card-text">{post.message}</p>
                         <div className="posts__card-decision">
-                            <button className="posts__card-like">
+                            <button className="posts__card-like"
+                                onClick={() => {
+                                    console.log('working')
+                                    dispatch(likePost(post._id))
+                                }}
+                            >
                                 <FontAwesomeIcon className="posts__card-like-post" icon={faThumbsUp} />
-                                <span className="posts__card-count">{post.count}5</span>
+                                <span className="posts__card-count">{post.likeCount}</span>
                             </button>
                             <button className="posts__card-delete">
                                 <FontAwesomeIcon className="posts__card-delete-post" icon={faTrash}
@@ -46,7 +51,6 @@ const Posts = ({ currentId, setcurrentid }) => {
                                             dispatch(deletePost(post._id));
                                             toast("Post deleted successfully")
                                         }
-                                            
                                     }}
                                 />
                             </button>
