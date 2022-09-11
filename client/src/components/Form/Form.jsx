@@ -8,46 +8,34 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Form = ({currentId, setcurrentid}) => {
   const dispatch = useDispatch();
-  const [postData, setPostData] = useState({
-    creator: '',
-    title: '',
-    message: '',
-    tags: '',
-    selectedFile: ''
-  });
+  const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
   const post = useSelector((state) => currentId ? state.posts.find(p => p._id === currentId) : null );
-  console.log(post)
-
+  // console.log(post)
+  console.log(currentId)
   useEffect(() => {
-    if (post) setPostData(post);
-    // post && setPostData(post)
+    post && setPostData(post);
   }, [post])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = () => {
     if(currentId){
       dispatch(editPost(currentId, postData))
-      // toast('Posts updated...')
+      toast('Posts updated...')
     } else {
       dispatch(createPost(postData))
       toast('Posts created successfully!')
     }
+    clear()
   };
 
   const clear = () => {
-    setPostData({
-      creator: '',
-      title: '',
-      message: '',
-      tags: '',
-      selectedFile: ''
-    })
+    setcurrentid(null)
+    setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
   };
 
   return (
     <div className='form' id='form'>
-      <p className='form__title-tag'>Editing "<span name="title">Title</span>"</p>
-      <div className='form__creator'>
+      <p className='form__title-tag'>{currentId ? 'Edit' : 'Share'} Your <span name="title">Memory</span></p>
+      <div className='form__creator'> 
         <input type="text" className='form__input'
          placeholder='Creator'
          name="creator"
