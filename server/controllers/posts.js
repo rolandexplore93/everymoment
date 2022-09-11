@@ -33,9 +33,22 @@ export const editPost = async (req, res) => {
     res.status(200).json({message: 'Post updated...', updatedPost})
 }
 
+export const likePost = async (req, res) => {
+    const { id: _id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Invalid post id');
+    try {
+        const post = await PostMessage.findById(_id);
+        if (post === null) return res.status(404).json({message: `Post id:${_id} doesn't exit in the database.`});
+        const updatedPost = await PostMessage.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1}, { new: true });
+        res.status(200).json(updatedPost)
+    } catch (error) {
+        res.status(404).json({message: error.message});
+    }
+}
+
 export const deletePost = async (req, res) => {
     const {id: _id} = req.params;
-    const post = req.body
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Invalid post id');
 
