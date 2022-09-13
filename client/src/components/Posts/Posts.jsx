@@ -6,21 +6,17 @@ import moment from 'moment';
 import { deletePost, likePost } from "../../services/actions/posts";
 import { toast } from 'react-toastify';
 import images from "../../assets/images";
-// import 'react-toastify/dist/ReactToastify.css';
-
 
 const Posts = ({ currentId, setcurrentid }) => {
     const posts = useSelector((state) => state.posts);
     const dispatch = useDispatch();
     console.log(posts);
 
-
     return (
         <div className="posts" >
             {posts.map((post) => (
                 <div className="posts__card" key={post._id}>
                     <div className="posts__card-owner">
-                        {/* <img className={post.selectedFile ? 'posts__card-picture' : ''} src={post.selectedFile} alt="uploaded-pics" /> */}
                         {post.selectedFile ? (
                             <img className='posts__card-picture' src={post.selectedFile} alt="uploaded-pics" />
                         ) : (
@@ -62,7 +58,6 @@ const Posts = ({ currentId, setcurrentid }) => {
                 </div>
             ))}
         </div>
-
       )
 };
 
