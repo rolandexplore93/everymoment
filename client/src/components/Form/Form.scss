@@ -3,9 +3,11 @@
     background: #eee;
     width: 350px;
     height: fit-content;
+    // height: 700px;
+    position: sticky;
+    top: 100px;
     border-radius: 5px;
-    margin-top: 30px;
-    // border: 1px solid red;
+    border: 2px solid blue;
     grid-column: 4;
 
 
