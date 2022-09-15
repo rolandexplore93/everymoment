@@ -3,13 +3,10 @@
     background: #eee;
     width: 350px;
     height: fit-content;
-    // height: 700px;
     position: sticky;
     top: 100px;
     border-radius: 5px;
-    border: 2px solid blue;
     grid-column: 4;
-
 
     &__title-tag {
         text-align: center;
@@ -25,12 +22,11 @@
         border: 1px solid #ccc;
     }
 
-    &__creator, &__title, &__message, &__tags, &__file, &__submit {
+    &__creator, &__title, &__tags, &__file, &__submit {
         margin-bottom: 10px;
     }
 
     &__message {
-        border: 1px solid red;
         padding: 0;
     }
 

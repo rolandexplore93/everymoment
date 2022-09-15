@@ -36,7 +36,7 @@ const Form = ({currentId, setcurrentid}) => {
       <p className='form__title-tag'>{currentId ? 'Edit' : 'Share'} Your <span name="title">Memory</span></p>
       <div className='form__creator'> 
         <input type="text" className='form__input'
-         placeholder='Creator'
+         placeholder='Creator' required
          name="creator"
          value={postData.creator}
          onChange={e => {
@@ -48,7 +48,7 @@ const Form = ({currentId, setcurrentid}) => {
       </div>
       <div className='form__title'>
         <input type="text" className='form__input'
-         placeholder='Post Title'
+         placeholder='Post Title' required
          name="title" 
          value={postData.title}
          onChange={e => {
@@ -60,7 +60,7 @@ const Form = ({currentId, setcurrentid}) => {
       <div className='form__message'>
         <textarea name="message" className='form__input' id="message" 
           cols="30" rows="9" maxLength="280"
-          placeholder='Message'
+          placeholder='Message' required
           value={postData.message}
           onChange={e => {
            const updatePostData = {...postData, message: e.target.value};
@@ -77,7 +77,7 @@ const Form = ({currentId, setcurrentid}) => {
       </div>
       <div className='form__tags'>
         <input type="text" className='form__input'
-         placeholder='Tags (separated by comma)' 
+         placeholder='Tags (separated by comma)' required
          name="tags" 
          value={postData.tags}
          onChange={e => {
