@@ -12,7 +12,7 @@ export const getPosts = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const body = req.body
+    const body = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replace(" ", "-"))};
     const newPost = await new PostMessage(body);
 
     try {
