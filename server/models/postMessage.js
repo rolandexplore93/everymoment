@@ -3,17 +3,21 @@ const Schema = mongoose.Schema;
 
 const postMessageSchema = new Schema({
     title: {
-        type: String
+        type: String,
+        required: true
     },
     message: {
         type: String,
+        required: true
     },
     creator: {
         type: String,
-        default: "Orobola Roland"
+        default: "Orobola Roland",
+        required: true
     },
     tags: {
-        type: []
+        type: [],
+        required: true
     },
     selectedFile: {
         type: String,
