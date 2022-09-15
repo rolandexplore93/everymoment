@@ -59,14 +59,21 @@ const Form = ({currentId, setcurrentid}) => {
       </div>
       <div className='form__message'>
         <textarea name="message" className='form__input' id="message" 
-          cols="30" rows="10"
+          cols="30" rows="9" maxLength="280"
           placeholder='Message'
           value={postData.message}
           onChange={e => {
            const updatePostData = {...postData, message: e.target.value};
            setPostData(updatePostData)
          }}
+          onKeyUp={() => {
+            const chars = document.getElementById('message').value.length;
+            document.getElementById('character-limit').innerHTML = 280-chars;
+          }}
         ></textarea>
+        <div className='character'>
+          <span id='character-limit'>280</span>
+        </div>
       </div>
       <div className='form__tags'>
         <input type="text" className='form__input'
