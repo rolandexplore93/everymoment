@@ -12,7 +12,7 @@ export const getPosts = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const body = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replace(" ", "-"))};
+    const body = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll(" ", "-"))};
     const newPost = await new PostMessage(body);
 
     try {
@@ -25,7 +25,7 @@ export const createPost = async (req, res) => {
 
 export const editPost = async (req, res) => {
     const _id = req.params.id;
-    const post = req.body
+    const post = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll(" ", "-"))};
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Post id not found');
     const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true })
