@@ -9,7 +9,7 @@
     "npm": "8.6.0"
     },
   "scripts": {
-    "start": "env-cmd -f .env node index.js",
+    "start": "node index.js",
     "dev": "env-cmd -f .env nodemon index.js"
   },
   "keywords": [],
