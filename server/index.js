@@ -12,10 +12,10 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 1
 app.use(bodyParser.text({ limit: '200mb' }));
 app.use(cors({origin: true, credentials: true}));
 
-app.use('/', (req, res) => {
-    res.send('Backend server for everymoment application')
-})
-app.use('/posts', postRoutes)
+app.use('/posts', postRoutes);
+app.get('/', (req, res) => {
+    res.send("Welcome to everymoment app server")
+});
 
 const PORT = process.env.PORT || 5000;
 
