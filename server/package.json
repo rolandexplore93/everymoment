@@ -1,14 +1,14 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "engines": {
-    "node": "16.16.0"
-    },
   "description": "",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "16.16.0"
+    },
   "scripts": {
-    "start": "node index.js",
+    "start": "env-cmd -f .env node index.js",
     "dev": "env-cmd -f .env nodemon index.js"
   },
   "keywords": [],
