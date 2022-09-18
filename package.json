@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "16.16.0",
+    "npm": "8.6.0"
+    },
   "scripts": {
     "start": "node server/index.js",
     "dev": "env-cmd -f .env nodemon server/index.js"
