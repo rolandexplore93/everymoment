@@ -3,7 +3,7 @@ import { FETCH_ALL, CREATE, UPDATE, LIKEPOST, DELETE } from "../../constants/act
 
 export const getPost = () => async (dispatch) => {
     try {
-        const { data } = await api.fetchPosts('http://localhost:5000');
+        const { data } = await api.fetchPosts();
         dispatch({
           type: FETCH_ALL,
           payload: data,
