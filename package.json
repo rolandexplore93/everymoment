@@ -3,25 +3,24 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "engines": {
     "node": "16.16.0",
     "npm": "8.6.0"
     },
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "env-cmd -f .env nodemon server/index.js"
+    "start": "env-cmd -f .env node index.js",
+    "dev": "env-cmd -f .env nodemon index.js"
   },
-  "dependencies": {
-    "express": "^4.18.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rolandexplore93/everymoment.git"
-  },
-  "author": "Orobola Roland Ogundipe",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rolandexplore93/everymoment/issues"
-  },
-  "homepage": "https://github.com/rolandexplore93/everymoment#readme"
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "env-cmd": "^10.1.0",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.2",
+    "nodemon": "^2.0.19"
+  }
 }
