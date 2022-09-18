@@ -13,9 +13,6 @@
   },
   "author": "Orobola Roland Ogundipe",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.1"
-  },
   "bugs": {
     "url": "https://github.com/rolandexplore93/everymoment/issues"
   },
