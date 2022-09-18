@@ -9,8 +9,8 @@
     "npm": "8.6.0"
     },
   "scripts": {
-    "start": "env-cmd -f .env node index.js",
-    "dev": "env-cmd -f .env nodemon index.js"
+    "start": "node server/index.js",
+    "dev": "env-cmd -f .env nodemon server/index.js"
   },
   "keywords": [],
   "author": "",
