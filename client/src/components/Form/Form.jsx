@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, editPost } from '../../services/actions/posts';
 import { toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 
 const Form = ({currentId, setcurrentid}) => {
   const dispatch = useDispatch();
