@@ -1,6 +1,7 @@
 import "./Menubar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import images from "../../../assets/images";
 
 const Menubar = () => {
   return (
@@ -8,6 +9,13 @@ const Menubar = () => {
       <div className="Menubar__title">
         <p className="Menubar__name">Share Your Moments</p>
         <FontAwesomeIcon className="Menubar__icon" icon={faCirclePlus} />
+      </div>
+      <div className="Menubar__profile">
+        <div className="Menubar__profile__account">
+          <img className="Menubar__profile__avatar" src={images.sparklingTree} alt="avater" />
+          <p className="Menubar__profile__user">RollyJS</p>
+        </div>
+        <button className="Menubar__profile__logout" type="submit">Logout</button>
       </div>
     </div>
   );
