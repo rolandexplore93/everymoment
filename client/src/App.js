@@ -8,6 +8,7 @@ import Spinner from './components/primaryComponents/Spinner/Spinner';
 import { getPost } from './services/actions/posts';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const App = () => {
                     }, 500) }
                 </div>
             ) : (
+            <BrowserRouter>
                 <div className='App'>
                     <ToastContainer position="top-right"
                         autoClose={1000}
@@ -39,13 +41,17 @@ const App = () => {
                         pauseOnFocusLoss
                         draggable
                         pauseOnHover
-                    />
+                        />
                     <Menubar />
+                    <Routes>
+                        {/* <Route to='/signin' element={Menubar}></Route> */}
+                    </Routes>
                     <div className='App__partition'>
                         <Posts className="App__partition__posts" setcurrentid={setCurrentId} />
                         <Form className="App__partition__form" currentId={currentId} setcurrentid={setCurrentId} />
                     </div>
                 </div>
+            </BrowserRouter>
             )}
 
         </div>

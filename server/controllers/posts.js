@@ -19,15 +19,16 @@ export const createPost = async (req, res) => {
         await newPost.save()
         res.status(201).json(newPost)
     } catch (error) {
-        res.status(409).json({ message: error.message});
+        res.status(409).json({ message: error.message})
     }
 }
 
 export const editPost = async (req, res) => {
     const _id = req.params.id;
-    const post = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll(" ", "-"))};
-
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Post id not found');
+    console.log(req.body)
+    
+    const post = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll(" ", "-"))};
     const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true })
     if (updatedPost === null) return res.status(404).json({message: `Post id:${_id} doesn't exit in the database.`});
     res.status(200).json({message: 'Post updated...', updatedPost})
@@ -39,7 +40,7 @@ export const likePost = async (req, res) => {
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Invalid post id');
     try {
         const post = await PostMessage.findById(_id);
-        if (post === null) return res.status(404).json({message: `Post id:${_id} doesn't exit in the database.`});
+        if (post === null) return res.status(404).json({message: `Post id:${_id} doesn't exist in the database.`});
         const updatedPost = await PostMessage.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1}, { new: true });
         res.status(200).json(updatedPost)
     } catch (error) {

@@ -9,6 +9,8 @@ const Form = ({currentId, setcurrentid}) => {
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
   const post = useSelector((state) => currentId ? state.posts.find(p => p._id === currentId) : null );
+  // console.log(post)
+  console.log(postData.tags)
 
   useEffect(() => {
     post && setPostData(post);
@@ -31,7 +33,7 @@ const Form = ({currentId, setcurrentid}) => {
   };
 
   return (
-    <div className='form' id='form'>
+    <form className='form' id='form'>
       <p className='form__title-tag'>{currentId ? 'Edit' : 'Share'} Your <span name="title">Memory</span></p>
       <div className='form__creator'> 
         <input type="text" className='form__input'
@@ -43,7 +45,6 @@ const Form = ({currentId, setcurrentid}) => {
           setPostData(updatePostData)
         }}
         />
-
       </div>
       <div className='form__title'>
         <input type="text" className='form__input'
@@ -83,6 +84,10 @@ const Form = ({currentId, setcurrentid}) => {
           const updatePostData = {...postData, tags: e.target.value};
           setPostData(updatePostData)
         }}
+        onMouseOut={(e) => {
+          const updatePostData = {...postData, tags: e.target.value};
+          setPostData(updatePostData)
+        }}
         />
       </div>
       <FileBase 
@@ -104,9 +109,7 @@ const Form = ({currentId, setcurrentid}) => {
       <div className='form__cancelling'>
         <button className='form__input form__cancel' onClick={clear}>Cancel</button>
       </div>
-
-    
-    </div>
+    </form>
   )
 }
 

@@ -7,7 +7,7 @@ import { deletePost, likePost } from "../../services/actions/posts";
 import { toast } from 'react-toastify';
 import images from "../../assets/images";
 
-const Posts = ({ currentId, setcurrentid }) => {
+const Posts = ({ setcurrentid }) => {
     const posts = useSelector((state) => state.posts);
     const dispatch = useDispatch();
     console.log(posts);

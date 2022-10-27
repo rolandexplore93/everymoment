@@ -50,5 +50,15 @@
             padding: 3px 10px;
             color: #fff;
         }
+
+        &__signin {
+            cursor: pointer;
+            background-color: green;
+            outline: none;
+            border: 0;
+            border-radius: 3px;
+            padding: 3px 10px;
+            color: #fff;
+        }
     }
 }
