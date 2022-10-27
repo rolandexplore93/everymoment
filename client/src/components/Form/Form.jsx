@@ -16,7 +16,9 @@ const Form = ({currentId, setcurrentid}) => {
     post && setPostData(post);
   }, [post])
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
     if(currentId){
       dispatch(editPost(currentId, postData))
       toast('Posts updated...')
@@ -77,17 +79,13 @@ const Form = ({currentId, setcurrentid}) => {
       </div>
       <div className='form__tags'>
         <input type="text" className='form__input'
-         placeholder='Tags (separated by comma)' required
-         name="tags" 
-         value={postData.tags}
-         onChange={e => {
-          const updatePostData = {...postData, tags: e.target.value};
-          setPostData(updatePostData)
-        }}
-        onMouseOut={(e) => {
-          const updatePostData = {...postData, tags: e.target.value};
-          setPostData(updatePostData)
-        }}
+          placeholder='Tags (separated by comma)' required
+          name="tags" 
+          value={postData.tags}
+          onChange={e => {
+            const updatePostData = {...postData, tags: e.target.value};
+            setPostData(updatePostData)
+          }}
         />
       </div>
       <FileBase 
