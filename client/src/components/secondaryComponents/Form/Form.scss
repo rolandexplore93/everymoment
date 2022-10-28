@@ -22,7 +22,7 @@
         border: 1px solid #ccc;
     }
 
-    &__creator, &__title, &__tags, &__file, &__submit {
+    &__creator, &__title, &__tags, &__file {
         margin-bottom: 10px;
     }
 
@@ -46,15 +46,16 @@
 
     &__submission {
         margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
     }
 
     &__submit, &__cancel {
-        border-radius: 3px;
+        border-radius: 10px;
         padding: 5px;
         cursor: pointer;
         color: #eee;
-        text-transform: uppercase;
-        font-weight: bold;
+        width: 70px;
     }
     
     &__submit {

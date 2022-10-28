@@ -1,0 +1,95 @@
+.posts {
+    border-radius: 10px;
+    grid-column: 1/4;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 370px));
+    gap: 20px;
+}
+
+.posts__card {
+    height: 350px;
+    // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    
+    &-owner {
+        height: 140px;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+    }
+
+    &-picture {
+        width: 100%;
+        height: inherit;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+    }
+
+    &-about {
+        position: relative;
+        top: -140px;
+        padding: 0 5px;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    &-author-cover {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    &-ellipsis {
+        cursor: pointer;
+    }
+
+    &-time {
+        font-size: 10px;
+    }
+
+    &-content {
+        background: #fff;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        padding: 5px 5px 10px;
+        // border: 1px solid red;
+    }
+
+    &-tags {
+        margin: 10px 0;
+        font-size: 10px;
+        word-wrap: break-word;
+
+        & > span {
+            color: tomato;
+        }
+    }
+
+    &-title {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &-text {
+        margin: 15px 0;
+        word-wrap: break-word;
+        font-size: 12px;
+        height: fit-content;
+    }
+
+    &-decision {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    &-like, &-delete {
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.8);
+        border: none;
+        background: transparent;
+    }
+}

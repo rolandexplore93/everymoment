@@ -9,7 +9,9 @@ const Menubar = () => {
   return (
     <div className="Menubar">
       <div className="Menubar__title">
-        <p className="Menubar__name">Share Your Moments</p>
+        <Link to={'/'}>
+          <p className="Menubar__name">Share Your Moments</p>
+        </Link>
         <FontAwesomeIcon className="Menubar__icon" icon={faCirclePlus} />
       </div>
       <div className="Menubar__profile">
@@ -23,7 +25,7 @@ const Menubar = () => {
           <button className="Menubar__profile__logout" type="submit">Logout</button>
           </>
         ) : (
-          <Link to='/signin'>
+          <Link to={'/auth'}>
             <button className="Menubar__profile__signin" type="submit">Sign in</button>
           </Link>
         )

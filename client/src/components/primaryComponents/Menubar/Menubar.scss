@@ -1,6 +1,5 @@
 .Menubar {
     background-color: #ddd;
-    border-radius: 5px;
     color: rgb(13, 13, 138);
     position: sticky;
     top: 0;
@@ -10,8 +9,8 @@
     align-items: center;
     padding: 0 50px;
     margin-bottom: 30px;
+    z-index: 2;
     
-
     &__title {
         display: flex;
         justify-content: center;
