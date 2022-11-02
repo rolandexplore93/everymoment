@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import pages from "./pages";
 
-
 const App = () => {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
