@@ -14,10 +14,8 @@ app.use(cors({origin: true, credentials: true}));
 
 app.use('/posts', postRoutes);
 app.get('/', (req, res) => {
-    res.send("Welcome to everymoment app server")
+    res.send("Welcome to Everymoment server")
 });
-
-// const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.MONGODB_URL)
     .then(result => app.listen(process.env.PORT || 5000, console.log(`Listening to the server at port: ${process.env.PORT || 5000}`)))
