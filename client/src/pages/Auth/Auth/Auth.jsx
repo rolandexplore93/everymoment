@@ -33,9 +33,9 @@ const Auth = () => {
 
   }
 
-  const responseGoogle = (e) => {
-    console.log(e)
-  }
+  // const responseGoogle = (e) => {
+  //   console.log(e)
+  // }
 
   useEffect(() => {
     function start() {
@@ -107,7 +107,7 @@ const Auth = () => {
           <GoogleLogin 
             clientId={clientId}
             onSuccess={successResponse}
-            onFailure={responseGoogle}
+            // onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
           />
       </form>
