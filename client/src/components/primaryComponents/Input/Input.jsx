@@ -12,6 +12,9 @@ const Input = ({ name, autoFocus, type, onChange, placeholder, value }) => {
         onChange={onChange}
         placeholder={placeholder}
         value={value}
+        inputProps={name === "password" && {
+          
+        }}
         required
     />
   )
