@@ -1,12 +1,30 @@
 import "./Menubar.scss";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import images from "../../../assets/images";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Menubar = () => {
-  const user = null;
-  // console.log(null)
+  const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile'))) 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const logout = () => {
+    dispatch({ type: 'LOGOUT'});
+    navigate('/');
+    setUser(null);
+  }
+
+  useEffect(() => {
+    const token = user?.token
+
+    //JWT
+    setUser(JSON.parse(localStorage.getItem('profile')))
+  }, [location])
+
   return (
     <div className="Menubar">
       <div className="Menubar__title">
@@ -26,7 +44,7 @@ const Menubar = () => {
               />
               <p className="Menubar__profile__user">RollyJS</p>
             </div>
-            <button className="Menubar__profile__logout" type="submit">
+            <button className="Menubar__profile__logout" type="submit" onClick={logout}>
               Logout
             </button>
           </>
