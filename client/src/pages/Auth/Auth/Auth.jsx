@@ -21,7 +21,8 @@ const Auth = () => {
   };
 
   const successResponse = async (res) => {
-    const result = res?.profileObj;
+    console.log(res)
+    const result = res?.profileObj;   // Using ? will return undefined if it can't find the profileObj
     const token = res?.tokenId;
 
     try {
@@ -33,6 +34,7 @@ const Auth = () => {
 
   const responseGoogle = (e) => {
     console.log(e)
+    console.log("Google sign in was unsuccessful... Try again");
   }
 
   // useEffect(() => {
