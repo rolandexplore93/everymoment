@@ -7,6 +7,7 @@ import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { signup, signin } from "../../../services/actions/auth";
 
 const initialData = {
   firstname: '',
@@ -23,8 +24,15 @@ const Auth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
+  // jwt login and signup implementation
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (isSignUp){
+      dispatch(signup(formData, navigate))
+    } else (
+      dispatch(signin(formData, navigate))
+    )
   };
   
   const handleChange = (e) => {
@@ -35,6 +43,7 @@ const Auth = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
   };
 
+  // Google login implementation
   const successResponse = async (res) => {
     console.log(res)
     const result = res?.profileObj;   // Using ? will return undefined if it can't find the profileObj
