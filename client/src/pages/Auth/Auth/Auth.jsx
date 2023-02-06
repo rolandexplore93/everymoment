@@ -8,8 +8,17 @@ import { gapi } from "gapi-script";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+const initialData = {
+  firstname: '',
+  lastname: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+}
+
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(true);
+  // const [formDatac setFormDatac] = useState(initialData);
   const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID;
   const dispatch = useDispatch();
   const navigate = useNavigate()
