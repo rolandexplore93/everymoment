@@ -18,7 +18,7 @@ const initialData = {
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(true);
-  // const [formDatac setFormDatac] = useState(initialData);
+  const [formData, setFormData] = useState(initialData);
   const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID;
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -26,6 +26,10 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+  
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.name]: e.target.value});
+  }
 
   const switchMode = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
@@ -73,13 +77,13 @@ const Auth = () => {
               type={"text"}
               placeholder={"Firstname"}
               autoFocus={true}
-              onChange={(e) => e.target.value}
+              onChange={handleChange}
             />
             <primaryComponents.Input
               name={"lastname"}
               type={"text"}
               placeholder={"Lastname"}
-              onChange={(e) => e.target.value}
+              onChange={handleChange}
             />
           </div>
         )}
@@ -87,20 +91,20 @@ const Auth = () => {
           name={"email"}
           type={"email"}
           placeholder={"email"}
-          onChange={(e) => e.target.value}
+          onChange={handleChange}
         />
         <primaryComponents.Input
           name={"password"}
           type={"password"}
           placeholder={"password"}
-          onChange={(e) => e.target.value}
+          onChange={handleChange}
         />
         {isSignUp && (
           <primaryComponents.Input
-            name={"password"}
+            name={"confirmPassword"}
             type={"password"}
             placeholder={"Repeat password"}
-            onChange={(e) => e.target.value}
+            onChange={handleChange}
           />
         )}
         {isSignUp ? (
