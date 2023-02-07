@@ -4,6 +4,8 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 
 import postRoutes from './routes/posts.js';
+import userRoutes from './routes/users.js';
+
 
 const app = express();
 
@@ -13,6 +15,7 @@ app.use(bodyParser.text({ limit: '200mb' }));
 app.use(cors({origin: true, credentials: true}));
 
 app.use('/posts', postRoutes);
+app.use('users', userRoutes);
 app.get('/', (req, res) => {
     res.send("Welcome to Everymoment server")
 });
