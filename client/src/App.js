@@ -12,11 +12,17 @@ import pages from "./pages";
 const App = () => {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
-  const [currentId, setCurrentId] = useState(null);
+  // const [currentId, setCurrentId] = useState(null);
+
+  // useEffect(() => {
+  //   dispatch(getPost());
+  // }, [currentId, dispatch]);
 
   useEffect(() => {
     dispatch(getPost());
-  }, [currentId, dispatch]);
+  }, [dispatch])
+
+
 
   return (
     <div>
@@ -44,7 +50,8 @@ const App = () => {
             {/* Routes */}
             <Menubar />
             <Routes>
-              <Route path="/" index element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route>
+              {/* <Route path="/" index element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route> */}
+              <Route path="/" index element={<pages.Home />}></Route>
               <Route path="/auth" element={<pages.Auth />}></Route>
             </Routes>
           </div>

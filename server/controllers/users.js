@@ -25,6 +25,7 @@ export const signin = async (req, res) => {
 }
 
 export const signup = async () => {
-    
+    const {firstname, lastname, email, password, confirmPassword } = req.body;
+    const name = `${firstname} ${lastname}`
 
 }

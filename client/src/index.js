@@ -10,7 +10,8 @@ import './index.scss';
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 const root = ReactDOMClient.createRoot(document.getElementById('root'));
 root.render(
-    <Provider store={store}>
+    // Initialize redux
+    <Provider store={store}>  
         <App />
     </Provider>
 );

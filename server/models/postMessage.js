@@ -15,17 +15,17 @@ const postMessageSchema = new Schema({
         default: "Orobola Roland",
         required: true
     },
-    tags: {
-        type: [],
-        required: true
-    },
+    tags: [{
+            type: String,
+            required: true
+    }],
     selectedFile: {
         type: String,
     },
     likeCount: {
         type: Number,
         default: 0
-    },
+    }
 }, {timestamps: true})
 
 const PostMessage = mongoose.model('Post', postMessageSchema);

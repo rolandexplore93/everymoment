@@ -1,19 +1,21 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import PostMessage from "../models/postMessage.js"
+import PostMessage from "../models/postMessage.js";
 
 export const getPosts = async (req, res) => {
     try {
-        const allPosts = await PostMessage.find();
-        res.status(200).json(allPosts)
+        const posts = await PostMessage.find();
+        if (!posts) return res.status(404).json({ message: 'No post found!', success: false });
+        return res.status(200).json({ success: true, posts });;
     } catch (error){
-        console.log(error)
+        console.log(error.message);
+        return res.status(500).json({ message: `Internal Server Error: ${error.message}` });
     }
 }
 
 export const createPost = async (req, res) => {
-    const body = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll(" ", "-"))};
-    const newPost = await new PostMessage(body);
+    const post = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll(" ", "-"))};
+    const newPost = await new PostMessage(post);
 
     try {
         await newPost.save()
