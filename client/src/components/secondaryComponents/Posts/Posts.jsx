@@ -12,13 +12,13 @@ import { toast } from "react-toastify";
 import images from "../../../assets/images";
 
 const Posts = ({ setcurrentid }) => {
-  const posts = useSelector((state) => state.posts);
+  const getPosts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
-  console.log(posts);
+  console.log(getPosts)
 
   return (
     <div className="posts">
-      {posts.map((post) => (
+      {getPosts.posts.map((post) => (
         <div className="posts__card" key={post._id}>
           <div className="posts__card-owner">
             {post.selectedFile ? (

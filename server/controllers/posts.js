@@ -6,7 +6,7 @@ export const getPosts = async (req, res) => {
     try {
         const posts = await PostMessage.find();
         if (!posts) return res.status(404).json({ message: 'No post found!', success: false });
-        return res.status(200).json({ success: true, posts });;
+        return res.status(200).json({ success: true, message: 'Posts successfully fetched', posts });;
     } catch (error){
         console.log(error.message);
         return res.status(500).json({ message: `Internal Server Error: ${error.message}` });
@@ -14,25 +14,30 @@ export const getPosts = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const post = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll(" ", "-"))};
-    const newPost = await new PostMessage(post);
-
+    const newPost = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim())};
+    // const post = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll("-", " "))};
     try {
-        await newPost.save()
-        res.status(201).json(newPost)
+        if (!newPost.title || !newPost.message || !newPost.creator) return res.status(400).json({ message: 'Title, Message and Creator fields must be filled', success: false })
+        const post = await new PostMessage(newPost);
+        await post.save()
+        return res.status(201).json({message: 'Your post has been created', success: true, post})
     } catch (error) {
-        res.status(409).json({ message: error.message})
+        return res.status(500).json({ message: error.message})
     }
 }
 
 export const editPost = async (req, res) => {
     const _id = req.params.id;
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Post id not found');
-    const formatTags = req.body.tags.toString().split(',').map(tag => tag.trim().replaceAll(' ','-'));
-    const post = {...req.body, tags: formatTags};
-    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true })
-    if (updatedPost === null) return res.status(404).json({message: `Post id:${_id} doesn't exit in the database.`});
-    res.status(200).json({message: 'Post updated...', updatedPost})
+    try {
+        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({ message: 'Post id is not valid', success: false});
+        const formatTags = req.body.tags.toString().split(',').map(tag => tag.trim().replaceAll('-',' '));
+        const post = {...req.body, tags: formatTags};
+        const postUpdated = await PostMessage.findByIdAndUpdate(_id, post, { new: true })
+        if (!postUpdated) return res.status(404).json({message: `Post doesn't exit in the database.`, success: false });
+        return res.status(200).json({message: 'Post updated...', postUpdated, success: true})
+    } catch (error) {
+        return res.status(500).json({ message: error.message})
+    }
 }
 
 export const likePost = async (req, res) => {
