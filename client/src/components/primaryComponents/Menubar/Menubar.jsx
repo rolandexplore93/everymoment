@@ -19,7 +19,7 @@ const Menubar = () => {
   }
 
   useEffect(() => {
-    const token = user?.token
+    // const token = user?.token
 
     //JWT
     setUser(JSON.parse(localStorage.getItem('profile')))

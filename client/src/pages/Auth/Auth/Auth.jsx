@@ -1,10 +1,10 @@
 import "./Auth.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import primaryComponents from "../../../components/primaryComponents";
 import { GoogleLogin } from "react-google-login";
-import { gapi } from "gapi-script";
+// import { gapi } from "gapi-script";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signup, signin } from "../../../services/actions/auth";
