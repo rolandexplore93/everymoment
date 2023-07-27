@@ -32,7 +32,7 @@ export const editPost = async (req, res) => {
         if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({ message: 'Post id is not valid', success: false});
         const formatTags = req.body.tags.toString().split(',').map(tag => tag.trim().replaceAll('-',' '));
         const post = {...req.body, tags: formatTags};
-        const postUpdated = await PostMessage.findByIdAndUpdate(_id, post, { new: true })
+        const postUpdated = await PostMessage.findByIdAndUpdate(_id, {...post, _id }, { new: true })
         if (!postUpdated) return res.status(404).json({message: `Post doesn't exit in the database.`, success: false });
         return res.status(200).json({message: 'Post updated...', postUpdated, success: true})
     } catch (error) {
@@ -41,27 +41,25 @@ export const editPost = async (req, res) => {
 }
 
 export const likePost = async (req, res) => {
-    const { id: _id} = req.params;
-
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Invalid post id');
+    const _id = req.params.id;
     try {
+        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({ message: 'Invalid post id', success: false });
         const post = await PostMessage.findById(_id);
-        if (post === null) return res.status(404).json({message: `Post id:${_id} doesn't exist in the database.`});
-        const updatedPost = await PostMessage.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1}, { new: true });
-        res.status(200).json(updatedPost)
+        if (!post) return res.status(404).json({message: `Post id:${_id} doesn't exist in the database.`, success: false});
+        const updatedPostLikeCount = await PostMessage.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1}, { new: true });
+        return res.status(200).json({message: 'Post updated...', updatedPostLikeCount, success: true})
+
     } catch (error) {
         res.status(404).json({message: error.message});
     }
 }
 
 export const deletePost = async (req, res) => {
-    const {id: _id} = req.params;
-
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Invalid post id');
-
+    const _id = req.params.id;
     try {
+        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({ message: 'Invalid post id', success: false });
         const removePost = await PostMessage.findByIdAndDelete(_id);
-        if (removePost === null) return res.status(404).json({message: `Post id:${_id} doesn't exit in the database.`});
+        if (!removePost) return res.status(404).json({message: `Post id:${_id} doesn't exit in the database.`});
         res.status(200).json({message: `Post id:${_id} deleted from the database.`});
     } catch (error) {
         res.status(404).json({message: error.message});

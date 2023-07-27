@@ -14,11 +14,11 @@ import images from "../../../assets/images";
 const Posts = ({ setcurrentid }) => {
   const getPosts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
-  console.log(getPosts)
+  // console.log(setcurrentid)
 
   return (
     <div className="posts">
-      {getPosts.posts.map((post) => (
+      {getPosts.map((post) => (
         <div className="posts__card" key={post._id}>
           <div className="posts__card-owner">
             {post.selectedFile ? (

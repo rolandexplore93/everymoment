@@ -6,11 +6,11 @@ const Home = ({ currentId, setcurrentid}) => {
   return (
     <div className="home">
         <secondaryComponents.Posts 
-            // setcurrentid={setcurrentid}
+            setcurrentid={setcurrentid}
         />
         <secondaryComponents.Form 
-            // currentId={currentId}
-            // setcurrentid={setcurrentid}
+            currentId={currentId}
+            setcurrentid={setcurrentid}
         />
     </div>
   );

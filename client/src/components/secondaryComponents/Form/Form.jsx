@@ -14,49 +14,33 @@ const Form = ({ currentId, setcurrentid }) => {
     tags: "",
     selectedFile: "",
   });
-  // const post = useSelector((state) =>
-  //   currentId ? state.posts.find((p) => p._id === currentId) : null
-  // );
+
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
 
   // console.log(post)
   // console.log(postData.tags);
 
-  // useEffect(() => {
-  //   post && setPostData(post);
-  // }, [post]);
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if (currentId) {
-  //     dispatch(editPost(currentId, postData));
-  //     toast("Posts updated...");
-  //   } else {
-  //     dispatch(createPost(postData));
-  //     toast("Posts created successfully!");
-  //   }
-  //   clear();
-  // };
+  useEffect(() => {
+    post && setPostData(post);
+  }, [post]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost(postData)) 
-    toast("Posts created successfully!");
+
+    if (currentId) {
+      dispatch(editPost(currentId, postData));
+      toast("Posts updated...");
+    } else {
+      dispatch(createPost(postData));
+      toast("Posts created successfully!");
+    }
     clear();
   };
 
-  // const clear = () => {
-  //   setcurrentid(null);
-  //   setPostData({
-  //     creator: "",
-  //     title: "",
-  //     message: "",
-  //     tags: "",
-  //     selectedFile: "",
-  //   });
-  // };
-
-  const clear = (e) => {
+  const clear = () => {
+    setcurrentid(null);
     setPostData({
       creator: "",
       title: "",
@@ -69,8 +53,7 @@ const Form = ({ currentId, setcurrentid }) => {
   return (
     <form className="form" id="form">
       <p className="form__title-tag">
-        {/* {currentId ? "Edit" : "Share"} Your <span name="title">Memory</span> */}
-        Your <span name="title">Memory</span>
+        {currentId ? "Edit" : "Share"} Your <span name="title">Memory</span>
       </p>
       <div className="form__creator">
         <input
