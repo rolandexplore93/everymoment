@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import primaryComponents from "../../../components/primaryComponents";
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 // import { gapi } from "gapi-script";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ const initialData = {
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(true);
   const [formData, setFormData] = useState(initialData);
-  const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID;
+  // const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID;
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
@@ -44,24 +44,24 @@ const Auth = () => {
   };
 
   // Google login implementation
-  const successResponse = async (res) => {
-    console.log(res)
-    const result = res?.profileObj;   // Using ? will return undefined if it can't find the profileObj
-    const token = res?.tokenId;
+  // const successResponse = async (res) => {
+  //   console.log(res)
+  //   const result = res?.profileObj;   // Using ? will return undefined if it can't find the profileObj
+  //   const token = res?.tokenId;
 
-    try {
-      dispatch({ type: "AUTH", data: { result, token } });
+  //   try {
+  //     dispatch({ type: "AUTH", data: { result, token } });
 
-      navigate('/');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     navigate('/');
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const responseGoogle = (e) => {
-    console.log(e)
-    console.log("Google sign in was unsuccessful... Try again");
-  }
+  // const responseGoogle = (e) => {
+  //   console.log(e)
+  //   console.log("Google sign in was unsuccessful... Try again");
+  // }
 
   // useEffect(() => {
   //   function start() {
@@ -121,7 +121,8 @@ const Auth = () => {
         ) : (
           <primaryComponents.Input type={"submit"} value="Sign in" />
         )}
-        {!isSignUp &&
+        Sign in with Google
+        {/* {!isSignUp &&
           <GoogleLogin
             clientId={clientId}
             render={renderProps => (
@@ -137,7 +138,7 @@ const Auth = () => {
             onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
           />
-        }
+        } */}
       </form>
       {isSignUp ? (
         <p style={{ color: '#000'}}>
