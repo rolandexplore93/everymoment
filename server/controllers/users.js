@@ -4,7 +4,7 @@ import User from '../models/user.js';
 import bcyprt from 'bcrypt';
 import jsonwebtoken from 'jsonwebtoken';
 
-console.log(process.env.SECRETJWT)
+// console.log(process.env.SECRETJWT)
 
 export const signin = async (req, res) => {
     const { email, password } = req.body
