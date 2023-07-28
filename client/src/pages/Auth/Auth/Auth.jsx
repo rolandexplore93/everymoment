@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import primaryComponents from "../../../components/primaryComponents";
-// import { GoogleLogin } from "react-google-login";
+import { GoogleLogin } from '@react-oauth/google';
 // import { gapi } from "gapi-script";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,8 +18,9 @@ const initialData = {
 }
 
 const Auth = () => {
-  const [isSignUp, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState(initialData);
+  // const [showPassword, setShowPassword] = useState(false)
   // const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID;
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -42,6 +43,10 @@ const Auth = () => {
   const switchMode = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
   };
+
+  // const handleShowPassword = () => {
+  //   setShowPassword((prevshowPassword) => !prevshowPassword)
+  // }
 
   // Google login implementation
   // const successResponse = async (res) => {
@@ -121,7 +126,15 @@ const Auth = () => {
         ) : (
           <primaryComponents.Input type={"submit"} value="Sign in" />
         )}
-        Sign in with Google
+        <GoogleLogin
+          onSuccess={credentialResponse => {
+            console.log(credentialResponse);
+          }}
+          onError={(error) => {
+            console.log(error)
+            console.log('Login Failed');
+          }}
+        />
         {/* {!isSignUp &&
           <GoogleLogin
             clientId={clientId}
@@ -146,7 +159,7 @@ const Auth = () => {
         </p>
       ) : (
         <p style={{ color: '#000'}}>
-          Don't have an account? <span className="auth-sign-up" onClick={switchMode}>Create</span>
+          Don't have an account? <span className="auth-sign-up" onClick={switchMode}>Click here to create an account</span>
         </p>
       )}
     </div>

@@ -7,7 +7,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 const Menubar = () => {
-  const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile'))) 
+  // const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile'))) 
+  const user = null;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -15,14 +16,14 @@ const Menubar = () => {
   const logout = () => {
     dispatch({ type: 'LOGOUT'});
     navigate('/');
-    setUser(null);
+    // setUser(null);
   }
 
   useEffect(() => {
     // const token = user?.token
 
     //JWT
-    setUser(JSON.parse(localStorage.getItem('profile')))
+    // setUser(JSON.parse(localStorage.getItem('profile')))
   }, [location])
 
   return (
@@ -42,7 +43,7 @@ const Menubar = () => {
                 src={images.sparklingTree}
                 alt="avater"
               />
-              <p className="Menubar__profile__user">RollyJS</p>
+              <p className="Menubar__profile__user">RollyJS {user.result}</p>
             </div>
             <button className="Menubar__profile__logout" type="submit" onClick={logout}>
               Logout

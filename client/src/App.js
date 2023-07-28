@@ -51,7 +51,6 @@ const App = () => {
             <Menubar />
             <Routes>
               <Route path="/" index element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route>
-              {/* <Route path="/" index element={<pages.Home />}></Route> */}
               <Route path="/auth" element={<pages.Auth />}></Route>
             </Routes>
           </div>
