@@ -1,31 +1,66 @@
-import express from 'express';
 import mongoose from 'mongoose';
 import User from '../models/user.js';
-import bcyprt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import jsonwebtoken from 'jsonwebtoken';
+import createError from 'http-errors';
+import validator from 'validator';
 
-// console.log(process.env.SECRETJWT)
 
-export const signin = async (req, res) => {
+export const signin = async (req, res, next) => {
     const { email, password } = req.body
-
+    
     try {
-        const existingUser = await User.findOne({ email });
-        if (!existingUser) return res.status(404).json({message: "User doesn't exist... Please Sign up!"});
-        const isPasswordCorrect = await bcyprt.compare(password, existingUser.password);
-        if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid login credentials"});
+        if (!validator.isEmail(email)) throw createError.BadRequest('Please, enter a valid email address');
+        const user = await User.findOne({ email });
+        if (!user) throw createError.Unauthorized('Invalid email or password.');
         
-        // Create a jwt token to determine the duration which a user stays login
-        const token = jsonwebtoken.sign({ email: existingUser.email, id: existingUser._id }, process.env.SECRETJWT, { expiresIn: '180secs'});
-        res.status(200).json({ message: existingUser, token})
+        const comparePassword = await bcrypt.compare(password, user.password);
+        if (!comparePassword) throw createHttpError.Unauthorized('Invalid login details.');
+
+        const token = jsonwebtoken.sign({ email: user.email, id: user._id }, process.env.SECRETJWT, { expiresIn: '30m'});
+        res.status(200).json({ message: 'Login successful.', user, token, success: true });
     } catch (error) {
-        res.status(500).json("Server error. Please, try again.")
+        return next(error)
     }
 
-}
+};
 
-export const signup = async () => {
+export const signup = async (req, res, next) => {
     const {firstname, lastname, email, password, confirmPassword } = req.body;
-    const name = `${firstname} ${lastname}`
+    try {
+        if(!firstname || !lastname || !email || !password || !confirmPassword) throw createError.BadRequest('All fields are required');
+        const name = `${firstname} ${lastname}`
+        if (!validator.isEmail(email)) throw createError.BadRequest('Please enter a valid email address');
 
+        // Check if user email already exists in the database
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            if (existingUser.email === email) throw createError.Conflict('Email already exists');
+        };
+
+        // Encrypt user password and save user details to the database
+        if (password.length < 8 || password.length > 15) throw createError.BadRequest('Password length must be between 8-15.');
+        if (!(password.toLowerCase() == confirmPassword.toLowerCase())) throw createError.BadRequest('Passwords do not match.');
+        const salt = await bcrypt.genSalt();
+        const encryptUserPassword = await bcrypt.hash(password, salt);
+        const userDetails = { name, email, password: encryptUserPassword};
+        const user = await new User(userDetails);
+        await user.save();
+
+        const token = jsonwebtoken.sign({ name: user.name, email: user.email, id: user._id }, process.env.SECRETJWT, { expiresIn: '30m'});
+
+        return res.status(200).json({ message: 'User profile created successfully.', user, token, success: true });
+    } catch (error) {
+        return next(error);
+    }
+};
+
+export const getUsers = async (req, res, next) => {
+    try {
+        const users = await User.find();
+        if (!users || users == []) throw createError.NotFound('No user found!');
+        return res.status(200).json({ success: true, message: 'Users successfully fetched', users });;
+    } catch (error){
+        return next(error)
+    }
 }

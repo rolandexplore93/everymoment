@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import postRoutes from './routes/posts.js';
 import userRoutes from './routes/users.js';
+import createError from 'http-errors';
 
 const app = express();
 
@@ -18,8 +19,22 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 1
 app.use(bodyParser.text({ limit: '200mb' }));
 app.use(cors({origin: true, credentials: true}));
 
-app.use('/', postRoutes);
-app.use('users', userRoutes);
 app.get('/', (req, res) => {
     res.send("Welcome to Everymoment server")
+});
+
+app.use('/', postRoutes);
+app.use('/', userRoutes);
+app.use(async (req, res, next) => { // Non-existing page
+    next(createError.NotFound('Page not found!'));
+});
+
+app.use((err, req, res, next) => { // Express error handler
+    res.json({ 
+        error: {
+            status: err.status || 500,
+            message: err.message,
+            success: false
+        }
+    });
 });
