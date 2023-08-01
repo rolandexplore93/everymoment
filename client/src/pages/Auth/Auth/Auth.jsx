@@ -1,12 +1,14 @@
 import "./Auth.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import primaryComponents from "../../../components/primaryComponents";
 import { GoogleLogin } from '@react-oauth/google';
 // import { gapi } from "gapi-script";
+import jwt_decode from "jwt-decode";
+import { AUTH } from "../../../constants/actionTypes";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { signup, signin } from "../../../services/actions/auth";
 
 const initialData = {
@@ -19,11 +21,13 @@ const initialData = {
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
   const [formData, setFormData] = useState(initialData);
   // const [showPassword, setShowPassword] = useState(false)
   // const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID;
   const dispatch = useDispatch();
   const navigate = useNavigate()
+  const location = useLocation();
 
   // jwt login and signup implementation
   const handleSubmit = (e) => {
@@ -49,6 +53,31 @@ const Auth = () => {
   // }
 
   // Google login implementation
+  const successGoogleLogin = async (credentialResponse) => {
+    const token = credentialResponse?.credential
+    const data = jwt_decode(credentialResponse.credential)
+
+    try {
+      dispatch({ type: AUTH, payload: { data, token } });
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  
+  useEffect(() => {
+    const token = user?.token;
+
+    // JWT
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  }, [location])
+
+  const failedGoogleLogin = (error) => {
+    console.log(error)
+    console.log('Login Failed');
+  };
+
   // const successResponse = async (res) => {
   //   console.log(res)
   //   const result = res?.profileObj;   // Using ? will return undefined if it can't find the profileObj
@@ -127,13 +156,8 @@ const Auth = () => {
           <primaryComponents.Input type={"submit"} value="Sign in" />
         )}
         <GoogleLogin
-          onSuccess={credentialResponse => {
-            console.log(credentialResponse);
-          }}
-          onError={(error) => {
-            console.log(error)
-            console.log('Login Failed');
-          }}
+          onSuccess={successGoogleLogin}
+          onError={failedGoogleLogin}
         />
         {/* {!isSignUp &&
           <GoogleLogin

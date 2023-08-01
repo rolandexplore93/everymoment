@@ -5,25 +5,29 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import images from "../../../assets/images";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { googleLogout } from "@react-oauth/google";
 
 const Menubar = () => {
-  // const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile'))) 
-  const user = null;
+  const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
+  // const user = null;
+  console.log(user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   const logout = () => {
     dispatch({ type: 'LOGOUT'});
-    navigate('/');
-    // setUser(null);
+    setUser(null);
+    googleLogout();
+    navigate('/auth');
   }
 
   useEffect(() => {
-    // const token = user?.token
+    const token = user?.token;
 
-    //JWT
-    // setUser(JSON.parse(localStorage.getItem('profile')))
+    // JWT
+
+    setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location])
 
   return (
@@ -43,7 +47,7 @@ const Menubar = () => {
                 src={images.sparklingTree}
                 alt="avater"
               />
-              <p className="Menubar__profile__user">RollyJS {user.result}</p>
+              <p className="Menubar__profile__user">{user.data.name}</p>
             </div>
             <button className="Menubar__profile__logout" type="submit" onClick={logout}>
               Logout
