@@ -6,10 +6,11 @@ import images from "../../../assets/images";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { googleLogout } from "@react-oauth/google";
+import jwtDecode from "jwt-decode";
+
 
 const Menubar = () => {
   const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
-  // const user = null;
   // console.log(user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,7 +26,11 @@ const Menubar = () => {
   useEffect(() => {
     const token = user?.token;
 
-    // JWT
+    // if token is expired
+    if (token){
+      const decodedToken = jwtDecode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout()
+    }
 
     setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location])
