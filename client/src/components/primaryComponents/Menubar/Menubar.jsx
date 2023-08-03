@@ -1,5 +1,5 @@
 import "./Menubar.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import images from "../../../assets/images";
@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { googleLogout } from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
 
-
 const Menubar = () => {
   const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
   // console.log(user)
@@ -16,12 +15,12 @@ const Menubar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const logout = () => {
+  const logout = useCallback(() => {
     dispatch({ type: 'LOGOUT'});
     setUser(null);
     googleLogout();
     navigate('/auth');
-  }
+  }, [dispatch, setUser, navigate])
 
   useEffect(() => {
     const token = user?.token;
@@ -33,7 +32,7 @@ const Menubar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location])
+  }, [location, logout, user?.token])
 
   return (
     <div className="Menubar">

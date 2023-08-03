@@ -69,10 +69,10 @@ const Auth = () => {
 
   
   useEffect(() => {
-    const token = user?.token;
+    // const token = user?.token;
     // JWT
     setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location])
+  }, [location, user?.token])
 
   const failedGoogleLogin = (error) => {
     console.log(error)

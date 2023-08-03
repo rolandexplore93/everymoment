@@ -15,7 +15,7 @@ import { useState } from "react";
 const Posts = ({ setcurrentid }) => {
   const getPosts = useSelector((state) => state.posts);
   console.log(getPosts)
-  const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
+  const [ user ] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
 
   return (
