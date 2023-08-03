@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode";
 import { AUTH } from "../../../constants/actionTypes";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { signup, signin } from "../../../services/actions/auth";
+import { signup, login } from "../../../services/actions/auth";
 
 const initialData = {
   firstname: '',
@@ -23,6 +23,7 @@ const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
   const [formData, setFormData] = useState(initialData);
+
   // const [showPassword, setShowPassword] = useState(false)
   // const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID;
   const dispatch = useDispatch();
@@ -36,12 +37,13 @@ const Auth = () => {
     if (isSignUp){
       dispatch(signup(formData, navigate))
     } else (
-      dispatch(signin(formData, navigate))
+      dispatch(login(formData, navigate))
     )
   };
   
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    const targetField = {...formData, [e.target.name]: e.target.value};
+    setFormData(targetField);
   }
 
   const switchMode = () => {
@@ -68,7 +70,6 @@ const Auth = () => {
   
   useEffect(() => {
     const token = user?.token;
-
     // JWT
     setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location])

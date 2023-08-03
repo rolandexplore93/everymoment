@@ -10,7 +10,7 @@ import { googleLogout } from "@react-oauth/google";
 const Menubar = () => {
   const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
   // const user = null;
-  console.log(user)
+  // console.log(user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,7 +47,7 @@ const Menubar = () => {
                 src={images.sparklingTree}
                 alt="avater"
               />
-              <p className="Menubar__profile__user">{user.data.name}</p>
+              <p className="Menubar__profile__user">{user.data ? user.data.name : user.user.name}</p>
             </div>
             <button className="Menubar__profile__logout" type="submit" onClick={logout}>
               Logout

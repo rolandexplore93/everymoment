@@ -86,7 +86,23 @@
         justify-content: space-between;
     }
     
-    &-like, &-delete {
+    &-like {
+        
+        & > button {
+            border: none;
+            background: transparent;
+        }
+    }
+
+    &-like-post {
+        cursor: pointer;
+        // color: rgba(0, 0, 0, 0.8);
+        border: none;
+        background: transparent;
+        margin: 0;
+    }
+
+    &-delete {
         cursor: pointer;
         color: rgba(0, 0, 0, 0.8);
         border: none;

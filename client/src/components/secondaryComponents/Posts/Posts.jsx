@@ -10,11 +10,13 @@ import moment from "moment";
 import { deletePost, likePost } from "../../../services/actions/posts";
 import { toast } from "react-toastify";
 import images from "../../../assets/images";
+import { useState } from "react";
 
 const Posts = ({ setcurrentid }) => {
   const getPosts = useSelector((state) => state.posts);
+  console.log(getPosts)
+  const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
-  // console.log(setcurrentid)
 
   return (
     <div className="posts">
@@ -36,12 +38,14 @@ const Posts = ({ setcurrentid }) => {
             )}
             <div className="posts__card-about">
               <div className="posts__card-author-cover">
-                <p className="posts__card-author">{post.creator}</p>
-                <FontAwesomeIcon
-                  className="posts__card-ellipsis"
-                  icon={faEllipsis}
-                  onClick={() => setcurrentid(post._id)}
-                />
+                <p className="posts__card-author">{post.name}</p>
+                {(user?.data?.sub === post?.creator || user?.user?._id === post?.creator) && (
+                  <FontAwesomeIcon
+                    className="posts__card-ellipsis"
+                    icon={faEllipsis}
+                    onClick={() => setcurrentid(post._id)}
+                  />
+                )}
               </div>
               <p className="posts__card-time">
                 {moment(post.createdAt).fromNow()}
@@ -55,33 +59,52 @@ const Posts = ({ setcurrentid }) => {
             <h2 className="posts__card-title">{post.title}</h2>
             <p className="posts__card-text">{post.message}</p>
             <div className="posts__card-decision">
-              <button
-                className="posts__card-like"
-                onClick={() => dispatch(likePost(post._id))}
-              >
-                <FontAwesomeIcon
-                  className="posts__card-like-post"
-                  icon={faThumbsUp}
-                />{" "}
-                &nbsp;
-                <span className="posts__card-count">{post.likeCount}</span>
-              </button>
-              <button className="posts__card-delete">
-                <FontAwesomeIcon
-                  className="posts__card-delete-post"
-                  icon={faTrash}
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        "Are you sure you want to delete this post?"
-                      )
-                    ) {
-                      dispatch(deletePost(post._id));
-                      toast("Post deleted successfully");
-                    }
-                  }}
-                />
-              </button>
+              <div className="posts__card-like">
+                <button
+                  onClick={() => dispatch(likePost(post._id))}
+                  disabled={!user}
+                >
+                  {
+                    post.likes.length > 0 ? (
+                      post.likes.find((like) => like === (user?.data?.googleId || user?.user?._id))
+                      ? 
+                      <>
+                        <FontAwesomeIcon className="posts__card-like-post" icon={faThumbsUp} color='red' />
+                        <span className="posts__card-count">&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length -1} others`: `${post.likes.length} like${post.likes.length > 1 ? 's':''}`} </span>
+                      </>
+                      :
+                      <>
+                        <FontAwesomeIcon className="posts__card-like-post" icon={faThumbsUp} color='none' />
+                        <span className="posts__card-count">&nbsp;{post.likes.length} {post.likes.length === 1 ? 'like' : 'likes'} </span>
+                      </>
+                    ) 
+                    : 
+                    <>
+                      <FontAwesomeIcon className="posts__card-like-post" icon={faThumbsUp} color='none' />
+                      <span className="posts__card-count">&nbsp; {post.likes.length} </span>
+                    </>
+                  }
+                  &nbsp;
+                </button>
+              </div>
+              {(user?.data?.sub === post?.creator || user?.user?._id === post?.creator) && (
+                <button className="posts__card-delete">
+                  <FontAwesomeIcon
+                    className="posts__card-delete-post"
+                    icon={faTrash}
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Are you sure you want to delete this post?"
+                        )
+                      ) {
+                        dispatch(deletePost(post._id));
+                        toast("Post deleted successfully");
+                      }
+                    }}
+                  />
+                </button>
+              )}
             </div>
           </div>
         </div>

@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, editPost } from "../../../services/actions/posts";
 import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 
 const Form = ({ currentId, setcurrentid }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -18,6 +19,8 @@ const Form = ({ currentId, setcurrentid }) => {
   const post = useSelector((state) =>
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );
+
+  const user = JSON.parse(localStorage.getItem('profile'));
 
   // console.log(post)
   // console.log(postData.tags);
@@ -30,10 +33,10 @@ const Form = ({ currentId, setcurrentid }) => {
     e.preventDefault();
 
     if (currentId) {
-      dispatch(editPost(currentId, postData));
+      dispatch(editPost(currentId, { ...postData, name: user.data ? user?.data?.name : user?.user?.name }, navigate));
       toast("Posts updated...");
     } else {
-      dispatch(createPost(postData));
+      dispatch(createPost({  ...postData, name: user.data ? user?.data?.name : user?.user?.name }, navigate));
       toast("Posts created successfully!");
     }
     clear();
@@ -42,7 +45,6 @@ const Form = ({ currentId, setcurrentid }) => {
   const clear = () => {
     setcurrentid(null);
     setPostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
@@ -50,12 +52,23 @@ const Form = ({ currentId, setcurrentid }) => {
     });
   };
 
+  if (!user) {
+    // alert('Please sign in ')
+    return (
+      <div className="no-form-post"> 
+        <Link to={"/auth"} style={{ cursor: 'pointer' }}>
+            Sign in to create a post
+        </Link>
+      </div>
+    )
+  }
+
   return (
     <form className="form" id="form">
       <p className="form__title-tag">
         {currentId ? "Edit" : "Share"} Your <span name="title">Memory</span>
       </p>
-      <div className="form__creator">
+      {/* <div className="form__creator">
         <input
           type="text"
           className="form__input"
@@ -68,7 +81,7 @@ const Form = ({ currentId, setcurrentid }) => {
             setPostData(updatePostData);
           }}
         />
-      </div>
+      </div> */}
       <div className="form__title">
         <input
           type="text"
