@@ -14,27 +14,15 @@ export const getPosts = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const newPost = {...req.body, creator: req.userId, tags: req.body.tags.split(',').map(tag => tag.trim())};
-    // const post = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll("-", " "))};
+    const newPost = {...req.body, creator: req.userId, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll("-", " "))};
     try {
-        if (!newPost.title || !newPost.message || !newPost.creator) return res.status(400).json({ message: 'Title, Message and Creator fields must be filled', success: false })
+        if (!newPost.title || !newPost.message ) return res.status(400).json({ message: 'Title, Message and Creator fields must be filled', success: false })
         const post = await new PostMessage(newPost);
         await post.save()
-        return res.status(201).json({message: 'Your post has been created', success: true, post})
+        return res.status(201).json({ message: 'Your post has been created', success: true, post })
     } catch (error) {
-        return res.status(500).json({ message: error.message})
+        return res.status(500).json({ error: { message: error.message, success: false } })
     }
-
-    // const newPost = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim())};
-    // // const post = {...req.body, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll("-", " "))};
-    // try {
-    //     if (!newPost.title || !newPost.message || !newPost.creator) return res.status(400).json({ message: 'Title, Message and Creator fields must be filled', success: false })
-    //     const post = await new PostMessage(newPost);
-    //     await post.save()
-    //     return res.status(201).json({message: 'Your post has been created', success: true, post})
-    // } catch (error) {
-    //     return res.status(500).json({ message: error.message})
-    // }
 }
 
 export const editPost = async (req, res) => {
@@ -42,10 +30,10 @@ export const editPost = async (req, res) => {
     try {
         if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({ message: 'Post id is not valid', success: false});
         const formatTags = req.body.tags.toString().split(',').map(tag => tag.trim().replaceAll('-',' '));
-        const post = {...req.body, tags: formatTags};
+        const post = {...req.body, creator: req.userId, tags: formatTags};
         const postUpdated = await PostMessage.findByIdAndUpdate(_id, {...post, _id }, { new: true })
-        if (!postUpdated) return res.status(404).json({message: `Post doesn't exit in the database.`, success: false });
-        return res.status(200).json({message: 'Post updated...', postUpdated, success: true})
+        if (!postUpdated) return res.status(404).json({ message: `Post doesn't exist in the database.`, success: false });
+        return res.status(200).json({ message: 'Post updated...', postUpdated, success: true})
     } catch (error) {
         return res.status(500).json({ message: error.message})
     }

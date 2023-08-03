@@ -57,7 +57,7 @@ export const signup = async (req, res, next) => {
 
 export const getUsers = async (req, res, next) => {
     try {
-        if (!req.userId) return res.status(401).json({ message: 'Please, login to view all users', success: false });
+        // if (!req.userId) return res.status(401).json({ message: 'Please, login to view all users', success: false });
         const users = await User.find();
         if (!users || users.length === 0) throw createError.NotFound('No user found!');
         return res.status(200).json({ success: true, message: 'Users successfully fetched', users });;
