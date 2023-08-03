@@ -10,10 +10,14 @@ const postMessageSchema = new Schema({
         type: String,
         required: true
     },
+    name: {
+        type: String,
+        required: true
+    },
     creator: {
         type: String,
-        default: "Orobola Roland",
-        required: true
+        // default: "Orobola Roland",
+        // required: true
     },
     tags: [{
             type: String,
@@ -21,6 +25,10 @@ const postMessageSchema = new Schema({
     }],
     selectedFile: {
         type: String,
+    },
+    likes: {
+        type: [String],
+        default: []
     },
     likeCount: {
         type: Number,

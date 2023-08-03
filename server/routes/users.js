@@ -1,10 +1,11 @@
 import express from 'express';
-import { signin, signup, getUsers } from '../controllers/users.js';
+import { login, signup, getUsers } from '../controllers/users.js';
+import { isAuthorize } from '../middleware/auth.js';
 
 const userRoutes = express.Router();
 
-userRoutes.post('/signin', signin);
-userRoutes.post('/signup', signup);
-userRoutes.get('/users', getUsers);
+userRoutes.post('/users/login', login);
+userRoutes.post('/users/signup', signup);
+userRoutes.get('/users', isAuthorize, getUsers);
 
 export default userRoutes;
