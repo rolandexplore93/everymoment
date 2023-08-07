@@ -10,7 +10,6 @@ import jwtDecode from "jwt-decode";
 
 const Menubar = () => {
   const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
-  // console.log(user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();

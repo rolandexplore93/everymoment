@@ -5,7 +5,6 @@ import jsonwebtoken from 'jsonwebtoken';
 import createError from 'http-errors';
 import validator from 'validator';
 
-
 export const login = async (req, res, next) => {
     let { email, password } = req.body
     
@@ -23,7 +22,6 @@ export const login = async (req, res, next) => {
     } catch (error) {
         return next(error)
     }
-
 };
 
 export const signup = async (req, res, next) => {

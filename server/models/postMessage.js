@@ -16,8 +16,8 @@ const postMessageSchema = new Schema({
     },
     creator: {
         type: String,
+        required: true
         // default: "Orobola Roland",
-        // required: true
     },
     tags: [{
             type: String,
