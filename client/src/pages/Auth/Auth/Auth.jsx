@@ -4,7 +4,6 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import primaryComponents from "../../../components/primaryComponents";
 import { GoogleLogin } from '@react-oauth/google';
-// import { gapi } from "gapi-script";
 import jwt_decode from "jwt-decode";
 import { AUTH } from "../../../constants/actionTypes";
 import { useDispatch } from "react-redux";
@@ -23,7 +22,7 @@ const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
   const [formData, setFormData] = useState(initialData);
-
+  console.log(user)
   // const [showPassword, setShowPassword] = useState(false)
   // const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID;
   const dispatch = useDispatch();
@@ -54,11 +53,18 @@ const Auth = () => {
   //   setShowPassword((prevshowPassword) => !prevshowPassword)
   // }
 
+  
+  
+  useEffect(() => {
+    // const token = user?.token;  // ? will return undefined if it can't find the token property
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  }, [location])
+  
+
   // Google login implementation
   const successGoogleLogin = async (credentialResponse) => {
     const token = credentialResponse?.credential
     const data = jwt_decode(credentialResponse.credential)
-
     try {
       dispatch({ type: AUTH, payload: { data, token } });
       navigate('/')
@@ -66,48 +72,11 @@ const Auth = () => {
       console.log(error)
     }
   };
-
   
-  useEffect(() => {
-    // const token = user?.token;
-    // JWT
-    setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location, user?.token])
-
   const failedGoogleLogin = (error) => {
     console.log(error)
     console.log('Login Failed');
   };
-
-  // const successResponse = async (res) => {
-  //   console.log(res)
-  //   const result = res?.profileObj;   // Using ? will return undefined if it can't find the profileObj
-  //   const token = res?.tokenId;
-
-  //   try {
-  //     dispatch({ type: "AUTH", data: { result, token } });
-
-  //     navigate('/');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const responseGoogle = (e) => {
-  //   console.log(e)
-  //   console.log("Google sign in was unsuccessful... Try again");
-  // }
-
-  // useEffect(() => {
-  //   function start() {
-  //     gapi.client.init({
-  //       clientId: clientId,
-  //       scope: "",
-  //     });
-  //   }
-
-  //   gapi.load("client:auth2", start);
-  // });
 
   return (
     <div className="auth">
@@ -160,23 +129,6 @@ const Auth = () => {
           onSuccess={successGoogleLogin}
           onError={failedGoogleLogin}
         />
-        {/* {!isSignUp &&
-          <GoogleLogin
-            clientId={clientId}
-            render={renderProps => (
-              <button 
-                style={{color: 'red', padding: '3px', cursor: 'pointer'}}
-                color="primary"
-                onClick={renderProps.onClick} 
-                disabled={renderProps.disabled}>
-                Sign in with Google
-              </button>
-            )}
-            onSuccess={successResponse}
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
-          />
-        } */}
       </form>
       {isSignUp ? (
         <p style={{ color: '#000'}}>

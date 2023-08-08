@@ -14,15 +14,9 @@ const App = () => {
   const [loader, setLoader] = useState(true);
   const [currentId, setCurrentId] = useState(null);
 
-  // useEffect(() => {
-  //   dispatch(getPost());
-  // }, [currentId, dispatch]);
-
   useEffect(() => {
     dispatch(getPost());
   }, [currentId, dispatch])
-
-
 
   return (
     <div>
@@ -47,7 +41,6 @@ const App = () => {
               draggable
               pauseOnHover
             />
-            {/* Routes */}
             <Menubar />
             <Routes>
               <Route path="/" index element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route>

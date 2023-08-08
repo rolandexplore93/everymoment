@@ -22,9 +22,6 @@ const Form = ({ currentId, setcurrentid }) => {
 
   const user = JSON.parse(localStorage.getItem('profile'));
 
-  // console.log(post)
-  // console.log(postData.tags);
-
   useEffect(() => {
     post && setPostData(post);
   }, [post]);
@@ -53,7 +50,6 @@ const Form = ({ currentId, setcurrentid }) => {
   };
 
   if (!user) {
-    // alert('Please sign in ')
     return (
       <div className="no-form-post"> 
         <Link to={"/auth"} style={{ cursor: 'pointer' }}>
@@ -68,20 +64,6 @@ const Form = ({ currentId, setcurrentid }) => {
       <p className="form__title-tag">
         {currentId ? "Edit" : "Share"} Your <span name="title">Memory</span>
       </p>
-      {/* <div className="form__creator">
-        <input
-          type="text"
-          className="form__input"
-          placeholder="Creator"
-          required
-          name="creator"
-          value={postData.creator}
-          onChange={(e) => {
-            const updatePostData = { ...postData, creator: e.target.value };
-            setPostData(updatePostData);
-          }}
-        />
-      </div> */}
       <div className="form__title">
         <input
           type="text"

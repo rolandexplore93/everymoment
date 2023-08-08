@@ -27,10 +27,10 @@ const Menubar = () => {
     // if token is expired
     if (token){
       const decodedToken = jwtDecode(token);
-      if (decodedToken.exp * 1000 < new Date().getTime()) logout()
+      if ((decodedToken.exp * 1000) < new Date().getTime()) logout() 
     }
 
-    setUser(JSON.parse(localStorage.getItem('profile')));
+    setUser(JSON.parse(localStorage.getItem('profile')))
   }, [location, logout, user?.token])
 
   return (

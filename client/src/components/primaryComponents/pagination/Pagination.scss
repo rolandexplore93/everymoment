@@ -1,0 +1,9 @@
+.pagination-render {
+    display: flex;
+    list-style-type: none;
+    gap: 40px;
+}
+
+.page-number {
+    cursor: pointer;
+}

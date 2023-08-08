@@ -1,4 +1,3 @@
-import { googleLogout } from "@react-oauth/google";
 import { AUTH, LOGOUT } from "../../constants/actionTypes";
 
 const authReducer = (state = { authData: null }, action) => {
@@ -10,7 +9,7 @@ const authReducer = (state = { authData: null }, action) => {
         
         case LOGOUT:
             localStorage.clear();
-            googleLogout()
+            console.log('logout reducer')
             return { ...state, authData: null};
         
         default: 
