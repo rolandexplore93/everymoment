@@ -2,10 +2,10 @@ import "./Form.scss";
 import FileBase from "react-file-base64";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, editPost } from "../../../services/actions/posts";
+import { createPost, editPost, getPostsBySearch } from "../../../services/actions/posts";
 import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { Chip } from '@mui/material';
+import { Button } from '@mui/material';
 import ChipInput from 'material-ui-chip-input'
 
 function useQuery() {
@@ -63,6 +63,7 @@ const Form = ({ currentId, setcurrentid }) => {
   const searchPost = () => {
     if(search.trim()) {
       // dispatch => fetch search post
+      dispatch(getPostsBySearch({ search, tags: tags.join(',')}))
     } else {
       navigate('/uhh')
     }
@@ -107,18 +108,18 @@ const Form = ({ currentId, setcurrentid }) => {
           // onKeyPress={handleKeyPress}
           onKeyPress={handleKeyPress}
         />
-        <ChipInput
-        style={{ margin: '15px 0'}}
-          label="Search Tags"
-          value={tags}
-          variant="outlined"
-          color="primary"
-          onAdd={handleAddTag}
-          onDelete={handleDeleteTag}
-        />
-        <button onClick={searchPost}>
-          Search
-        </button>
+        <div>
+          <ChipInput
+          style={{ margin: '15px 0'}}
+            label="Search Tags"
+            value={tags}
+            variant="outlined"
+            color="primary"
+            onAdd={handleAddTag}
+            onDelete={handleDeleteTag}
+          />
+        </div>
+        <Button variant="contained" size="small" onClick={searchPost}>Search</Button>
       </div>
       <form className="form" id="form">
         <p className="form__title-tag">

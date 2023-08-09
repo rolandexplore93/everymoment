@@ -9,6 +9,15 @@ export const getPost = () => async (dispatch) => {
     } catch (error) {
         console.log(error.message)
     }
+};
+
+export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+    try {
+        const { data } = await api.getPostsBySearch(searchQuery);
+        if (data.error) return console.log(data.error.message)
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 export const createPost = (newpost, navigate) => async (dispatch) => {
