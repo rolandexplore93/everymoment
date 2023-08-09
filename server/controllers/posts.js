@@ -1,4 +1,3 @@
-import express from 'express';
 import mongoose from 'mongoose';
 import PostMessage from "../models/postMessage.js";
 
@@ -8,6 +7,21 @@ export const getPosts = async (req, res) => {
         if (!posts) return res.status(404).json({ message: 'No post found!', success: false });
         return res.status(200).json({ success: true, message: 'Posts successfully fetched', posts });;
     } catch (error){
+        console.log(error.message);
+        return res.status(500).json({ message: `Internal Server Error: ${error.message}` });
+    }
+};
+
+export const getPostsBySearch = async (req, res) => {
+    const { searchQuery, tags} = req.query;
+    console.log(searchQuery)
+    console.log(tags)
+    try {
+        const title = new RegExp(searchQuery, 'i'); // i means ignore case sensitivity
+        const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ] })
+        if (!posts || posts.length === 0) return res.status(404).json({ message: 'No post found!', success: false });
+        return res.status(200).json({ success: true, message: 'Posts matched.', posts });;
+    } catch (error) {
         console.log(error.message);
         return res.status(500).json({ message: `Internal Server Error: ${error.message}` });
     }
