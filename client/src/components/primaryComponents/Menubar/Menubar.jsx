@@ -31,7 +31,7 @@ const Menubar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem('profile')))
-  }, [location, logout, user?.token])
+  }, [location, user?.token, logout])
 
   return (
     <div className="Menubar">
