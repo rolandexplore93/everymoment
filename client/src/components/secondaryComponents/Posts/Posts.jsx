@@ -47,7 +47,7 @@ const Posts = ({ setcurrentid }) => {
 //  componet={Link} to={`/posts?page=${1}`}
   useEffect(() => {
     dispatch(getPost());
-  }, [location, dispatch])
+  }, [dispatch])
 
   if (!user) {
     return <p>No posts available.</p>

@@ -47,7 +47,7 @@ const App = () => {
             <Routes>
               <Route path="/" exact element={<Navigate to="/posts" />} />
               <Route path="/posts" index element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route>
-              <Route path="/posts/search?searchQuery" exact element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route>
+              <Route path="/posts/search" index element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route>
               <Route path="/posts/:id" element={<pages.PostDetails />} />
               <Route path="/auth" element={(!user ? <pages.Auth /> : <Navigate to='/posts' />)}></Route>
             </Routes>

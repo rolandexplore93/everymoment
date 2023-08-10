@@ -1,4 +1,5 @@
 export const FETCH_ALL = 'FETCH_ALL';
+export const FETCH_POSTS_BY_SEARCH = 'FETCH_POSTS_BY_SEARCH'
 export const CREATE = 'CREATE';
 export const UPDATE = 'UPDATE';
 export const LIKEPOST = 'LIKEPOST'

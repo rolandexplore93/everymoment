@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import secondaryComponents from "../../../components/secondaryComponents";
 import './Home.scss';
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 const Home = ({ currentId, setcurrentid}) => {
-  const location = useLocation();
+  // const location = useLocation();
 
-  useEffect(() => {
-  }, [location])
+  // useEffect(() => {
+  // }, [location])
   return (
     <div className="home">
         <secondaryComponents.Posts 

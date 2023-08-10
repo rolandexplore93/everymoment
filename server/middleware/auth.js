@@ -13,7 +13,7 @@ export const isAuthorize = async (req, res, next) => {
             req.userId = decodedData?.id
         } else {
             decodedData = decode(token)
-            console.log(decodedData)
+            // console.log(decodedData)
             req.userId = decodedData?.sub //Sub is a google id that differentiate every single user
         }
 

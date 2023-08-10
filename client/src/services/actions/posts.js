@@ -1,5 +1,5 @@
 import * as api from '../../api'; // * means import all the api calls/methods inside the api folder as api
-import { FETCH_ALL, CREATE, UPDATE, LIKEPOST, DELETE } from "../../constants/actionTypes";
+import { FETCH_ALL, CREATE, UPDATE, LIKEPOST, DELETE, FETCH_POSTS_BY_SEARCH } from "../../constants/actionTypes";
 
 export const getPost = () => async (dispatch) => {
     try {
@@ -14,11 +14,9 @@ export const getPost = () => async (dispatch) => {
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     try {
         const { data } = await api.getPostsBySearch(searchQuery);
-        if (data.error) return console.log(data.error.message);
-        // console.log(data)
-        console.log(data.posts)
+        dispatch({ type: FETCH_POSTS_BY_SEARCH, payload: data.posts})
     } catch (error) {
-        console.log(error.message)
+        return console.log(error.response.data.message)
     }
 }
 

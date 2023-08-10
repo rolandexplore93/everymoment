@@ -26,6 +26,7 @@ const Form = ({ currentId, setcurrentid }) => {
     tags: "",
     selectedFile: "",
   });
+
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
 
@@ -62,15 +63,15 @@ const Form = ({ currentId, setcurrentid }) => {
 
   const searchPost = () => {
     if(search.trim() || tags) {
-      // dispatch => fetch search post
-      dispatch(getPostsBySearch({ search, tags: tags.join(',')}))
+      // dispatch => fetch search posts or tags
+      dispatch(getPostsBySearch({ search, tags: tags.join(',')}));
+      navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.length !== 0 ? tags.join(',') : 'none'}`)
     } else {
       navigate('/')
     }
   };
 
   const handleKeyPress = (e) => {
-    console.log(e.keyCode)
     if (e.keyCode === 13) {
       console.log('This is enter key')
       searchPost()
@@ -80,7 +81,6 @@ const Form = ({ currentId, setcurrentid }) => {
   const handleAddTag = (tag) => setTags([...tags, tag]);
 
   const handleDeleteTag = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete ));
-
 
   if (!user) {
     return (
