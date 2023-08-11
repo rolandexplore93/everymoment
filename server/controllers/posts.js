@@ -20,7 +20,7 @@ export const getPosts = async (req, res) => {
         const startIndexOfEveryPage = (Number(page) - 1) * numberOfPostPerPage;
         const totalPosts = await PostMessage.countDocuments({})
         console.log(totalPosts)
-        const posts = await PostMessage.find().sort({ _id: 1 }).limit(numberOfPostPerPage).skip(startIndexOfEveryPage);
+        const posts = await PostMessage.find().sort({ _id: -1 }).limit(numberOfPostPerPage).skip(startIndexOfEveryPage);
         if (!posts) return res.status(404).json({ message: 'No post found!', success: false });
         return res.status(200).json({ success: true, message: 'Posts successfully fetched', posts, currentPage: Number(page), numberOfPages: Math.ceil(totalPosts/numberOfPostPerPage) });;
     } catch (error){

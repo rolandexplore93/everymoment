@@ -17,8 +17,10 @@ const Form = ({ currentId, setcurrentid }) => {
   const navigate = useNavigate();
   const query = useQuery();
   const user = JSON.parse(localStorage.getItem('profile'));
-  const page = query.get('page') || 1;
   const searchQuery = query.get('searchQuery');
+  
+  const [search, setSearch] = useState('');
+  const [tags, setTags] = useState([]);
   
   const [postData, setPostData] = useState({
     title: "",
@@ -27,8 +29,6 @@ const Form = ({ currentId, setcurrentid }) => {
     selectedFile: "",
   });
 
-  const [search, setSearch] = useState('');
-  const [tags, setTags] = useState([]);
 
   const post = useSelector((state) =>
     currentId ? state.posts.posts.find((p) => p._id === currentId) : null
