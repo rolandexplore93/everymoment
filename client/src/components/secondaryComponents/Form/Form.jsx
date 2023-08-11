@@ -31,7 +31,7 @@ const Form = ({ currentId, setcurrentid }) => {
   const [tags, setTags] = useState([]);
 
   const post = useSelector((state) =>
-    currentId ? state.posts.find((p) => p._id === currentId) : null
+    currentId ? state.posts.posts.find((p) => p._id === currentId) : null
   );
 
   useEffect(() => {
