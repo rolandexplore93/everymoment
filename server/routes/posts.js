@@ -4,6 +4,7 @@ import { isAuthorize } from '../middleware/auth.js';
 
 const postRoutes = express.Router();
 
+// postRoutes.get('/posts', isAuthorize, getPosts);
 postRoutes.get('/posts', isAuthorize, getPosts);
 postRoutes.get('/posts/search', isAuthorize, getPostsBySearch);
 postRoutes.post('/posts', isAuthorize, createPost);

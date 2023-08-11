@@ -1,6 +1,6 @@
 import "./App.scss";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import Menubar from "./components/primaryComponents/Menubar/Menubar";
 import Spinner from "./components/primaryComponents/Spinner/Spinner";
 import { getPost } from "./services/actions/posts";
@@ -10,15 +10,15 @@ import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";
 import pages from "./pages";
 
 const App = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
   const [currentId, setCurrentId] = useState(null);
   const user = JSON.parse(localStorage.getItem('profile'));
 
 
-  useEffect(() => {
-    dispatch(getPost());
-  }, [currentId, dispatch])
+  // useEffect(() => {
+  //   dispatch(getPost());
+  // }, [currentId, dispatch])
 
   return (
     <div>

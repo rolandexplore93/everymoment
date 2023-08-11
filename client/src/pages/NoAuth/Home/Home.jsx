@@ -3,6 +3,8 @@ import secondaryComponents from "../../../components/secondaryComponents";
 import './Home.scss';
 // import { useLocation } from "react-router-dom";
 
+
+
 const Home = ({ currentId, setcurrentid}) => {
   // const location = useLocation();
 

@@ -1,11 +1,28 @@
 import mongoose from 'mongoose';
 import PostMessage from "../models/postMessage.js";
 
+// export const getPosts = async (req, res) => {
+//     try {
+//         const posts = await PostMessage.find();
+//         if (!posts) return res.status(404).json({ message: 'No post found!', success: false });
+//         return res.status(200).json({ success: true, message: 'Posts successfully fetched', posts });;
+//     } catch (error){
+//         console.log(error.message);
+//         return res.status(500).json({ message: `Internal Server Error: ${error.message}` });
+//     }
+// };
+
 export const getPosts = async (req, res) => {
+    const { page } = req.query;
+    console.log(req.query)
     try {
-        const posts = await PostMessage.find();
+        const numberOfPostPerPage = 4;
+        const startIndexOfEveryPage = (Number(page) - 1) * numberOfPostPerPage;
+        const totalPosts = await PostMessage.countDocuments({})
+        console.log(totalPosts)
+        const posts = await PostMessage.find().sort({ _id: 1 }).limit(numberOfPostPerPage).skip(startIndexOfEveryPage);
         if (!posts) return res.status(404).json({ message: 'No post found!', success: false });
-        return res.status(200).json({ success: true, message: 'Posts successfully fetched', posts });;
+        return res.status(200).json({ success: true, message: 'Posts successfully fetched', posts, currentPage: Number(page), numberOfPages: Math.ceil(totalPosts/numberOfPostPerPage) });;
     } catch (error){
         console.log(error.message);
         return res.status(500).json({ message: `Internal Server Error: ${error.message}` });

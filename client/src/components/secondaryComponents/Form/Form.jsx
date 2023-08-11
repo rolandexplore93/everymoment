@@ -19,7 +19,7 @@ const Form = ({ currentId, setcurrentid }) => {
   const user = JSON.parse(localStorage.getItem('profile'));
   const page = query.get('page') || 1;
   const searchQuery = query.get('searchQuery');
-
+  
   const [postData, setPostData] = useState({
     title: "",
     message: "",
@@ -61,10 +61,10 @@ const Form = ({ currentId, setcurrentid }) => {
     });
   };
 
+  // dispatch => fetch search posts or tags
   const searchPost = () => {
     if(search.trim() || tags) {
-      // dispatch => fetch search posts or tags
-      dispatch(getPostsBySearch({ search, tags: tags.join(',')}));
+      dispatch(getPostsBySearch({ search, tags: tags.join(',')}, navigate));
       navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.length !== 0 ? tags.join(',') : 'none'}`)
     } else {
       navigate('/')
