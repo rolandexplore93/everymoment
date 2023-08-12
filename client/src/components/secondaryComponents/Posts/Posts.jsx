@@ -155,7 +155,7 @@ const Posts = ({ setcurrentid }) => {
             ))}
           </div>
           <div className="pagination">
-              <Pagin page={page} numberOfPages={numberOfPages} paginate={paginate} prevPage={prevPage} nextPage={nextPage}/>
+              <Pagin page={page} numberOfPages={numberOfPages} paginate={paginate} prevPage={prevPage} nextPage={nextPage} currentPage={currentPage}/>
             </div>
         </div>
       // )

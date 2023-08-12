@@ -3,7 +3,7 @@ import "./Pagination.scss";
 import { useDispatch } from "react-redux";
 import { getPost } from "../../../services/actions/posts";
 
-const Pagin = ({ page, numberOfPages, paginate, prevPage, nextPage }) => {
+const Pagin = ({ page, numberOfPages, paginate, prevPage, nextPage, currentPage }) => {
     const dispatch = useDispatch();
     const pageNumber = [];
 
@@ -18,9 +18,14 @@ const Pagin = ({ page, numberOfPages, paginate, prevPage, nextPage }) => {
   return (
     <div className="pagination-wrapper">
         <ul className="pagination-render">
-            <li className="page-number" onClick={prevPage}>
+            <button className="page-number" onClick={prevPage} disabled={currentPage === 1}
+                style={{ 
+                    background: currentPage <= 1 && '#aaa',
+                    cursor: currentPage <= 1 && 'default'
+                }}
+            >
                Prev
-            </li>
+            </button>
             {
                 pageNumber.map((pageNo) => (
                     <li key={pageNo} className="page-number" onClick={() => paginate(pageNo)}>
@@ -28,9 +33,14 @@ const Pagin = ({ page, numberOfPages, paginate, prevPage, nextPage }) => {
                     </li>
                 ))
             }
-            <li className="page-number" onClick={nextPage}>
+            <button className="page-number" onClick={nextPage} disabled={currentPage === numberOfPages}
+                style={{ 
+                    background: currentPage === numberOfPages && '#aaa',
+                    cursor: currentPage === numberOfPages && 'default'
+                }}
+            >
                Next
-            </li>
+            </button>
          </ul>
     </div>
   )
