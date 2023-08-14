@@ -1,9 +1,9 @@
 import "./App.scss";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // import { useDispatch } from "react-redux";
 import Menubar from "./components/primaryComponents/Menubar/Menubar";
 import Spinner from "./components/primaryComponents/Spinner/Spinner";
-import { getPost } from "./services/actions/posts";
+// import { getPost } from "./services/actions/posts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";

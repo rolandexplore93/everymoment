@@ -17,7 +17,7 @@ const postReducer = (state = { isLoading: true, posts: [] }, action) => {
         case GET_POST_BY_ID:
             return { ...state, post: action.payload.post, message: action.payload.message}
         case FETCH_POSTS_BY_SEARCH:
-            return {...state, posts: action.payload}
+            return { ...state, posts: action.payload}
         case CREATE:
             return { ...state, posts: [ ...state.posts, action.payload.post] }
         case UPDATE: 

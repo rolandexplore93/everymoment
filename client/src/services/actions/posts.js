@@ -19,7 +19,6 @@ export const getPostById = (postID) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING});
         const { data } = await api.getPostById(postID);
-        // console.log(data)
         dispatch({ type: GET_POST_BY_ID, payload: data });
         dispatch({ type: END_LOADING});
     } catch (error) {
@@ -45,7 +44,7 @@ export const createPost = (newpost, navigate) => async (dispatch) => {
         const { data } = await api.createPost(newpost);
         dispatch({ type: CREATE, payload: data });
         dispatch({ type: END_LOADING });
-        navigate('/');
+        navigate(`/posts/${data.post._id}`);
     } catch (error) {
         console.log(error)
     }

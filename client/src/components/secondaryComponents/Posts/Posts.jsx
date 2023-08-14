@@ -13,8 +13,6 @@ import images from "../../../assets/images";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Pagin from "../../primaryComponents/pagination/Pagin";
-// import { CircularProgress } from '@mui/material';
-
 
 function useQuery () {
   return new URLSearchParams(useLocation().search);
@@ -24,7 +22,6 @@ const Posts = ({ setcurrentid }) => {
   const { posts } = useSelector((state) => state.posts);
   const [ user ] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
-  // const location = useLocation();
   const query = useQuery();
   const page = query.get('page') || 1;
   const navigate = useNavigate();
@@ -66,7 +63,6 @@ const Posts = ({ setcurrentid }) => {
 
   return (
     !user ? <p>No posts available.</p> : (
-      // isLoading ? <CircularProgress /> : (
         <div className="posts__container">
           <div className="posts">
             {posts?.map((post) => (
@@ -163,7 +159,6 @@ const Posts = ({ setcurrentid }) => {
               <Pagin page={page} numberOfPages={numberOfPages} paginate={paginate} prevPage={prevPage} nextPage={nextPage} currentPage={currentPage}/>
             </div>
         </div>
-      // )
     )
   )
 };

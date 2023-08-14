@@ -1,22 +1,34 @@
 import { CircularProgress, Divider, Paper, Typography } from "@mui/material";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useStyles from './styles';
 import { useEffect } from "react";
-import { getPostById } from "../../../services/actions/posts";
-
+import { getPostById, getPostsBySearch } from "../../../services/actions/posts";
 
 const PostDetails = () => {
   const dispatch = useDispatch();
   const { post, posts, isLoading } = useSelector(state => state.posts);
-  const location = useLocation();
   const classes = useStyles();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getPostById(id))
-  }, [id]);
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    if (post) {
+      dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',')}))
+    }
+  }, [post, dispatch])
+
+  
+  const recommendedPosts = posts.filter(({ _id }) => post._id !== _id);
+
+  const viewPost = (postID) => {
+    navigate(`/posts/${postID}`)
+  }
 
   if (!post) return null;
 
@@ -26,12 +38,10 @@ const PostDetails = () => {
         <CircularProgress size="7em" />
       </Paper>
     )
-  }
-
-
+  };
+  
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px'}} elevation={3}>
-      {/* {console.log(post)} */}
       <div className={classes.card}>
         <div className={classes.section}>
           <Typography variant="h3" component="h2">{post.title}</Typography>
@@ -49,6 +59,25 @@ const PostDetails = () => {
           <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
         </div>
       </div>
+      { recommendedPosts.length && (
+        <div className={classes.section}>
+          <Typography gutterBottom variant="h5">Recommended posts</Typography>
+          <Divider />
+          <div className={classes.recommendedPosts}>
+            {
+              recommendedPosts.map(({ title, message, name, likes, selectedFile, _id }) => (
+                <div key={_id} style={{ margin: '10px', cursor: 'pointer' }} elevation={6} onClick={() => viewPost(_id)}>
+                  <Typography gutterBottom variant="h6">{ title }</Typography>
+                  <Typography gutterBottom variant="subtitle2">{ name }</Typography>
+                  <Typography gutterBottom variant="subtitle2">{ message }</Typography>
+                  <Typography gutterBottom variant="subtitle1">{ likes.length }</Typography>
+                  <img src={selectedFile} width="180px" alt="Img" />
+                </div>
+              ) )
+            }
+          </div>
+        </div>
+      ) }
     </Paper>
   )
 }
