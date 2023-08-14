@@ -43,7 +43,6 @@ export const getPostsBySearch = async (req, res) => {
 
 export const getPostById = async (req, res) => {
     const { id } = req.params;
-    console.log(id)
 
     try {
         const post = await PostMessage.findById(id)
