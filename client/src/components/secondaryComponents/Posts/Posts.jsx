@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Pagin from "../../primaryComponents/pagination/Pagin";
 // import { CircularProgress } from '@mui/material';
 
+
 function useQuery () {
   return new URLSearchParams(useLocation().search);
 }
@@ -55,7 +56,11 @@ const Posts = ({ setcurrentid }) => {
 
   useEffect(() => {
     dispatch(getPost(page));
-  }, [dispatch, page])
+  }, [dispatch, page]);
+
+  const viewPost = (postID) => {
+    navigate(`/posts/${postID}`)
+  }
 
   // if (!posts.length && !isLoading) return "No Posts"
 
@@ -65,7 +70,7 @@ const Posts = ({ setcurrentid }) => {
         <div className="posts__container">
           <div className="posts">
             {posts?.map((post) => (
-              <div className="posts__card" key={post._id}>
+              <div className="posts__card" key={post._id} onClick={() => viewPost(post._id)}>
                 <div className="posts__card-owner">
                   {post.selectedFile ? (
                     <img

@@ -1,11 +1,9 @@
 import Home from "./NoAuth/Home/Home";
 import Auth from "./Auth/Auth";
-import PostDetails from "./PostDetails/PostDetails";
 
 const pages = {
   Home,
-  Auth,
-  PostDetails
+  Auth
 };
 
 export default pages;

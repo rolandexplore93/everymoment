@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const API = axios.create({ baseURL: 'http://localhost:5000' })  // localhost environment
-const API = axios.create({ baseURL: 'https://everymoment.onrender.com' });  // deployment
+const API = axios.create({ baseURL: 'http://localhost:5000' })  // localhost environment
+// const API = axios.create({ baseURL: 'https://everymoment.onrender.com' });  // deployment
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem('profile')) {
@@ -13,6 +13,7 @@ API.interceptors.request.use((req) => {
 
 // export const fetchPosts = () => API.get('/posts');
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
+export const getPostById = (postID) => API.get(`/posts/${postID}`);
 export const getPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags === '' ? 'none' : searchQuery.tags}`)
 export const createPost = (newPost) => API.post('/posts', newPost);
 export const editPost = (currentId, updatedPost) => API.patch(`/posts/${currentId}`, updatedPost);

@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, LIKEPOST, DELETE, LOGOUT, FETCH_POSTS_BY_SEARCH, START_LOADING, END_LOADING } from "../../constants/actionTypes";
+import { FETCH_ALL, CREATE, UPDATE, LIKEPOST, DELETE, LOGOUT, FETCH_POSTS_BY_SEARCH, START_LOADING, END_LOADING, GET_POST_BY_ID } from "../../constants/actionTypes";
 
 const postReducer = (state = { isLoading: true, posts: [] }, action) => {
     switch (action.type) {
@@ -14,6 +14,8 @@ const postReducer = (state = { isLoading: true, posts: [] }, action) => {
                 numberOfPages: action.payload.numberOfPages,
                 message: action.payload.message
             }
+        case GET_POST_BY_ID:
+            return { ...state, post: action.payload.post, message: action.payload.message}
         case FETCH_POSTS_BY_SEARCH:
             return {...state, posts: action.payload}
         case CREATE:

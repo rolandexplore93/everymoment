@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";
 import pages from "./pages";
+import secondaryComponents from "./components/secondaryComponents";
 
 const App = () => {
   // const dispatch = useDispatch();
@@ -43,12 +44,13 @@ const App = () => {
               draggable
               pauseOnHover
             />
+            
             <Menubar />
             <Routes>
               <Route path="/" exact element={<Navigate to="/posts" />} />
               <Route path="/posts" index element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route>
               <Route path="/posts/search" index element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route>
-              <Route path="/posts/:id" element={<pages.PostDetails />} />
+              <Route path="/posts/:id" element={<secondaryComponents.PostDetails />} ></Route>
               <Route path="/auth" element={(!user ? <pages.Auth /> : <Navigate to='/posts' />)}></Route>
             </Routes>
           </div>
