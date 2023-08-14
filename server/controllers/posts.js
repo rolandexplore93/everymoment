@@ -41,6 +41,20 @@ export const getPostsBySearch = async (req, res) => {
     }
 }
 
+export const getPostById = async (req, res) => {
+    const { id } = req.params;
+    console.log(id)
+
+    try {
+        const post = await PostMessage.findById(id)
+        if (!post || post.length === 0) return res.status(404).json({ message: 'No post found!', success: false });
+        return res.status(200).json({ success: true, message: 'Post fetched.', post });;
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ message: `Internal Server Error: ${error.message}` });
+    }
+}
+
 export const createPost = async (req, res) => {
     const newPost = {...req.body, creator: req.userId, tags: req.body.tags.split(',').map(tag => tag.trim().replaceAll("-", " "))};
     try {
