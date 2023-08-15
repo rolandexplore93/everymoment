@@ -13,6 +13,7 @@ import images from "../../../assets/images";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Pagin from "../../primaryComponents/pagination/Pagin";
+import { Button } from "@mui/material";
 
 function useQuery () {
   return new URLSearchParams(useLocation().search);
@@ -66,7 +67,7 @@ const Posts = ({ setcurrentid }) => {
         <div className="posts__container">
           <div className="posts">
             {posts?.map((post) => (
-              <div className="posts__card" key={post._id} onClick={() => viewPost(post._id)}>
+              <div className="posts__card" key={post._id}>
                 <div className="posts__card-owner">
                   {post.selectedFile ? (
                     <img
@@ -132,6 +133,7 @@ const Posts = ({ setcurrentid }) => {
                         &nbsp;
                       </button>
                     </div>
+                    <Button variant="contained" color="success" size="small" onClick={() => viewPost(post._id)}>View</Button>
                     {(user?.data?.sub === post?.creator || user?.user?._id === post?.creator) && (
                       <button className="posts__card-delete">
                         <FontAwesomeIcon

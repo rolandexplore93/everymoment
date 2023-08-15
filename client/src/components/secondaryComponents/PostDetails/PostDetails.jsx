@@ -6,6 +6,7 @@ import useStyles from './styles';
 import { useEffect } from "react";
 import { getPostById, getPostsBySearch } from "../../../services/actions/posts";
 import CommentSection from "./CommentSection";
+import images from "../../../assets/images";
 
 const PostDetails = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const PostDetails = () => {
   };
 
   return (
-    <Paper style={{ padding: '20px', borderRadius: '15px'}} elevation={3}>
+    <Paper style={{ padding: '20px', borderRadius: '15px', margin: '0 50px'}} elevation={3}>
       <div className={classes.card}>
         <div className={classes.section}>
           <Typography variant="h3" component="h2">{post.title}</Typography>
@@ -58,22 +59,23 @@ const PostDetails = () => {
           <Divider style={{ margin: '20px 0' }} />
         </div>
         <div className={classes.imageSection}>
-          <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
+          <img className={classes.media} src={post.selectedFile || images.heart} alt={post.title} />
+          {/* <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} /> */}
         </div>
       </div>
       { recommendedPosts.length && (
-        <div className={classes.section}>
+        <div className={classes.recommendedSection}>
           <Typography gutterBottom variant="h5">Recommended posts</Typography>
           <Divider style={{ margin: '20px 0' }} />
           <div className={classes.recommendedPosts}>
             {
               recommendedPosts.map(({ title, message, name, likes, selectedFile, _id }) => (
-                <div key={_id} style={{ margin: '10px', cursor: 'pointer' }} elevation={6} onClick={() => viewPost(_id)}>
+                <div key={_id} style={{ margin: '10px', cursor: 'pointer', flex: 1, height: '350px', overflowY: 'auto' }} elevation={6} onClick={() => viewPost(_id)}>
                   <Typography gutterBottom variant="h6">{ title }</Typography>
-                  <Typography gutterBottom variant="subtitle2">{ name }</Typography>
-                  <Typography gutterBottom variant="subtitle2">{ message }</Typography>
-                  <Typography gutterBottom variant="subtitle1">{ likes.length }</Typography>
-                  <img src={selectedFile} width="180px" alt="Img" />
+                  <Typography gutterBottom variant="subtitle2">By: { name }</Typography>
+                  <img src={selectedFile || images.heart} width="180px" alt="Img" />
+                  <Typography gutterBottom variant="subtitle2" style={{ height: '100px', textOverflow: 'ellipsis' }}>{ message }</Typography>
+                  {/* <Typography gutterBottom variant="subtitle1">{ likes.length }</Typography> */}
                 </div>
               ) )
             }

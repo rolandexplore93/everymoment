@@ -16,10 +16,8 @@ const CommentSection = ({ post }) => {
         const name = user.data ? user?.data?.name : user?.user?.name;
         const userComment = `${name}: ${comment} `
         const newComments = await dispatch(postComment(userComment, post._id));
-        console.log(newComments)
         setComments(newComments);
-        setComment('')
-
+        setComment('');
         commentsRef.current.scrollIntoView({ behaviour: 'smooth' })
     }
 
@@ -49,10 +47,9 @@ const CommentSection = ({ post }) => {
                     value={comment}
                     onChange={(e) => setComment(e.target.value) }
                 />
-                <Button style={{ margin: '10px' }} color="success" fullWidth disabled={!comment} variant="container" onClick={submitComment}>
+                <Button style={{ marginTop: '10px' }} color="primary" fullWidth disabled={!comment} variant="contained" onClick={submitComment}>
                     Comment
                 </Button>
-
             </div>
         </div>
     </div>

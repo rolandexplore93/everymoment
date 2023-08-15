@@ -4,20 +4,14 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, editPost, getPostsBySearch } from "../../../services/actions/posts";
 import { toast } from "react-toastify";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from '@mui/material';
 import ChipInput from 'material-ui-chip-input'
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
 
 const Form = ({ currentId, setcurrentid }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const query = useQuery();
   const user = JSON.parse(localStorage.getItem('profile'));
-  const searchQuery = query.get('searchQuery');
   
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
@@ -28,7 +22,6 @@ const Form = ({ currentId, setcurrentid }) => {
     tags: "",
     selectedFile: "",
   });
-
 
   const post = useSelector((state) =>
     currentId ? state.posts.posts.find((p) => p._id === currentId) : null
@@ -61,7 +54,6 @@ const Form = ({ currentId, setcurrentid }) => {
     });
   };
 
-  // dispatch => fetch search posts or tags
   const searchPost = () => {
     if(search.trim() || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(',')}, navigate));
@@ -105,7 +97,6 @@ const Form = ({ currentId, setcurrentid }) => {
           onChange={(e) => {
             setSearch(e.target.value)
           }}
-          // onKeyPress={handleKeyPress}
           onKeyPress={handleKeyPress}
         />
         <div>

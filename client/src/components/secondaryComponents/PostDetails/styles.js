@@ -1,13 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
-    media: {
-      borderRadius: '20px',
-      objectFit: 'cover',
-      width: '100%',
-      maxHeight: '600px',
-  
-    },
     card: {
       display: 'flex',
       width: '100%',
@@ -19,16 +12,28 @@ export default makeStyles((theme) => ({
     section: {
       borderRadius: '20px',
       margin: '10px',
-      flex: 1,
+      flex: 3,
     },
     imageSection: {
       marginLeft: '20px',
+      flex: 2
+        
     //   [theme.breakpoints.down('sm')]: {
     //     marginLeft: 0,
     //   },
     },
+    media: {
+        borderRadius: '20px',
+        objectFit: 'cover',
+        width: '100%',
+        maxHeight: '600px',
+    },
+    recommendedSection: {
+        width: '100%',
+    },
     recommendedPosts: {
       display: 'flex',
+      justifyContent: 'space-between'
     //   [theme.breakpoints.down('sm')]: {
     //     flexDirection: 'column',
     //   },
@@ -43,6 +48,6 @@ export default makeStyles((theme) => ({
     CommentInnerContainer: {
         height: '200px',
         marginRight: '30px',
-        overflowY: 'auto'
+        overflowY: 'auto',
     }
   }));
