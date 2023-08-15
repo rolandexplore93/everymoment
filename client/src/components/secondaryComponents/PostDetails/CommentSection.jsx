@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, TextField, Typography } from "@mui/material";
 import useStyles from './styles';
@@ -10,6 +10,7 @@ const CommentSection = ({ post }) => {
     const [comments, setComments] = useState(post?.comments);
     const [comment, setComment] = useState('');
     const user = JSON.parse(localStorage.getItem('profile'));
+    const commentsRef = useRef()
 
     const submitComment = async () => {
         const name = user.data ? user?.data?.name : user?.user?.name;
@@ -18,6 +19,8 @@ const CommentSection = ({ post }) => {
         console.log(newComments)
         setComments(newComments);
         setComment('')
+
+        commentsRef.current.scrollIntoView({ behaviour: 'smooth' })
     }
 
   return (
@@ -28,10 +31,12 @@ const CommentSection = ({ post }) => {
                 {
                     comments.map((comment, i) => (
                         <Typography key={i} gutterBottom variant="subtitle1">
-                            {comment}
+                            <strong>{comment.split(': ')[0]}</strong>
+                            {comment.split(':')[1]}
                         </Typography>
                     ))
                 }
+                <div ref={commentsRef} />
             </div>
             <div style={{ width: '70%' }}>
                 <Typography gutterBottom variant="h6">Share your views </Typography>
