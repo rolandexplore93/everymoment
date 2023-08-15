@@ -2,12 +2,20 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, TextField, Typography } from "@mui/material";
 import useStyles from './styles';
+import { postComment } from '../../../services/actions/posts'
 
 const CommentSection = ({ post }) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const [comments, setComments] = useState([1,2,3,4,5,6]);
     const [comment, setComment] = useState('');
+    const user = JSON.parse(localStorage.getItem('profile'));
+
+    const submitComment = () => {
+        const name = user.data ? user?.data?.name : user?.user?.name;
+        const userComment = `${name}: ${comment} `
+        dispatch(postComment(userComment, post._id))
+    }
 
   return (
     <div className={classes.Container}>
@@ -33,7 +41,7 @@ const CommentSection = ({ post }) => {
                     value={comment}
                     onChange={(e) => setComment(e.target.value) }
                 />
-                <Button style={{ margin: '10px' }} fullWidth disabled={!comment} variant="container">
+                <Button style={{ margin: '10px' }} color="success" fullWidth disabled={!comment} variant="container" onClick={submitComment}>
                     Comment
                 </Button>
 
