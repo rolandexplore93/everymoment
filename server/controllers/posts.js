@@ -101,14 +101,27 @@ export const likePost = async (req, res) => {
             post.likes = post.likes.filter((id) => id !== String(req.userId));
             post.likeCount = post.likeCount - 1;
         }
-        console.log(post.likes)
-        console.log(post.likeCount)
         const updatedPostLikeCount = await PostMessage.findByIdAndUpdate(_id, post, { new: true });
         // const updatedPostLikeCount = await PostMessage.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1}, { new: true });
         return res.status(200).json({message: 'Post updated...', updatedPostLikeCount, success: true})
 
     } catch (error) {
-        res.status(404).json({message: error.message});
+        res.status(500).json({message: error.message});
+    }
+}
+
+export const postComment = async (req, res) => {    
+    const id = req.params.id;
+    const comment = req.body.comment;
+
+    try {
+        const post = await PostMessage.findById(id);
+        post.comments.push(comment);
+
+        const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true })
+        return res.status(200).json({message: 'Your comment pas been posted.', updatedPost, success: true})        
+    } catch (error) {
+        return res.status(500).json({ message: error.message})
     }
 }
 
