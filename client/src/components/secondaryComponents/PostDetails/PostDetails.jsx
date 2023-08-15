@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useStyles from './styles';
 import { useEffect } from "react";
 import { getPostById, getPostsBySearch } from "../../../services/actions/posts";
+import CommentSection from "./CommentSection";
 
 const PostDetails = () => {
   const dispatch = useDispatch();
@@ -53,7 +54,9 @@ const PostDetails = () => {
           <Divider style={{ margin: '20px 0' }} />
           <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
+          <Typography variant="body1">
+            <CommentSection post={post} />
+          </Typography>
           <Divider style={{ margin: '20px 0' }} />
         </div>
         <div className={classes.imageSection}>
@@ -63,7 +66,7 @@ const PostDetails = () => {
       { recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">Recommended posts</Typography>
-          <Divider />
+          <Divider style={{ margin: '20px 0' }} />
           <div className={classes.recommendedPosts}>
             {
               recommendedPosts.map(({ title, message, name, likes, selectedFile, _id }) => (

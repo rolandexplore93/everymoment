@@ -17,7 +17,7 @@ export const login = async (req, res, next) => {
         const comparePassword = await bcrypt.compare(password, user.password);
         if (!comparePassword) throw createError.Unauthorized('Invalid login details.');
 
-        const token = jsonwebtoken.sign({ name: user.name, email: user.email, id: user._id }, process.env.SECRETJWT, { expiresIn: '1hr'});
+        const token = jsonwebtoken.sign({ name: user.name, email: user.email, id: user._id }, process.env.SECRETJWT, { expiresIn: '30s'});
         res.status(200).json({ message: 'Login successful.', result: {user, token}, success: true });
     } catch (error) {
         return next(error)

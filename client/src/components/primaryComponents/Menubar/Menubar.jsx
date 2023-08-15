@@ -22,16 +22,19 @@ const Menubar = () => {
   }, [dispatch, setUser, navigate])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const token = user?.token;
 
-    // if token is expired
+    // const checkTokenExpiration = () => {}
     if (token){
       const decodedToken = jwtDecode(token);
-      if ((decodedToken.exp * 1000) < new Date().getTime()) logout() 
+      if ((decodedToken.exp * 1000) < new Date().getTime()) {
+        logout()
+      }
     }
-
     setUser(JSON.parse(localStorage.getItem('profile')))
-  }, [location, user?.token, logout])
+
+  }, [location, user?.token])
 
   return (
     <div className="Menubar">

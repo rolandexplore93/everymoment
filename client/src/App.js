@@ -16,7 +16,6 @@ const App = () => {
   const [currentId, setCurrentId] = useState(null);
   const user = JSON.parse(localStorage.getItem('profile'));
 
-
   // useEffect(() => {
   //   dispatch(getPost());
   // }, [currentId, dispatch])
