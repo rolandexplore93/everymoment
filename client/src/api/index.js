@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const API = axios.create({ baseURL: 'http://localhost:5000' })  // localhost environment
-const API = axios.create({ baseURL: 'https://everymoment.onrender.com' });  // deployment
+const API = axios.create({ baseURL: 'http://localhost:5000' })  // localhost environment
+// const API = axios.create({ baseURL: 'https://everymoment.onrender.com' });  // deployment
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem('profile')) {

@@ -23,8 +23,9 @@ const PostDetails = () => {
     }
   }, [post, dispatch])
 
-  
-  const recommendedPosts = posts.filter(({ _id }) => post._id !== _id);
+  const recommendedPosts = post && posts && posts.length > 0
+  ? posts.filter(({ _id }) => post._id !== _id) 
+  : [];
 
   const viewPost = (postID) => {
     navigate(`/posts/${postID}`)
@@ -39,7 +40,7 @@ const PostDetails = () => {
       </Paper>
     )
   };
-  
+
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px'}} elevation={3}>
       <div className={classes.card}>
