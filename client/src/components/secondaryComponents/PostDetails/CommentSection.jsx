@@ -7,14 +7,17 @@ import { postComment } from '../../../services/actions/posts'
 const CommentSection = ({ post }) => {
     const dispatch = useDispatch();
     const classes = useStyles();
-    const [comments, setComments] = useState([1,2,3,4,5,6]);
+    const [comments, setComments] = useState(post?.comments);
     const [comment, setComment] = useState('');
     const user = JSON.parse(localStorage.getItem('profile'));
 
-    const submitComment = () => {
+    const submitComment = async () => {
         const name = user.data ? user?.data?.name : user?.user?.name;
         const userComment = `${name}: ${comment} `
-        dispatch(postComment(userComment, post._id))
+        const newComments = await dispatch(postComment(userComment, post._id));
+        console.log(newComments)
+        setComments(newComments);
+        setComment('')
     }
 
   return (
@@ -25,7 +28,7 @@ const CommentSection = ({ post }) => {
                 {
                     comments.map((comment, i) => (
                         <Typography key={i} gutterBottom variant="subtitle1">
-                            HEre: {comment} is {i}
+                            {comment}
                         </Typography>
                     ))
                 }
