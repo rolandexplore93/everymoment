@@ -14,7 +14,7 @@ root.render(
     <GoogleOAuthProvider clientId={`${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}`}>
         {/* // Initialize redux */}
         <Provider store={store}>  
-            <App />
+            <App className="App" />
         </Provider>
     </GoogleOAuthProvider>
 );

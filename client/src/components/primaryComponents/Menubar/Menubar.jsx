@@ -15,9 +15,9 @@ const Menubar = () => {
   const location = useLocation();
 
   const logout = useCallback(() => {
+    googleLogout();
     dispatch({ type: 'LOGOUT'});
     setUser(null);
-    googleLogout();
     navigate('/auth');
   }, [dispatch, setUser, navigate])
 
@@ -25,7 +25,6 @@ const Menubar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const token = user?.token;
 
-    // const checkTokenExpiration = () => {}
     if (token){
       const decodedToken = jwtDecode(token);
       if ((decodedToken.exp * 1000) < new Date().getTime()) {
@@ -33,8 +32,7 @@ const Menubar = () => {
       }
     }
     setUser(JSON.parse(localStorage.getItem('profile')))
-
-  }, [location, user?.token])
+  }, [location, user?.token, logout])
 
   return (
     <div className="Menubar">
@@ -60,11 +58,12 @@ const Menubar = () => {
             </button>
           </>
         ) : (
-          <Link to={"/auth"}>
-            <button className="Menubar__profile__signin" type="submit">
-              Sign in
-            </button>
-          </Link>
+          <button className="Menubar__profile__signin" onClick={() => {
+            console.log('helo')
+            navigate('/auth')
+          }}>
+            Sign in
+          </button>
         )}
       </div>
     </div>

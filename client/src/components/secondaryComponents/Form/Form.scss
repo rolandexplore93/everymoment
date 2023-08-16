@@ -1,4 +1,5 @@
 .no-form-post {
+    flex: 1;
     color: #2f174d;
     height: 100px;
     width: 200px;
@@ -10,7 +11,13 @@
     padding: 20px 0px 5px 20px;
 }
 
+.form__container {
+    flex: 1;
+    border: 1px solid red;
+}
+
 .form {
+    border: 1px solid red;
     padding: 20px;
     background: #eee;
     width: 350px;

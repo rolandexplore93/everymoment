@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Paper, TextField, Typography } from "@mui/material";
 import useStyles from './styles';
 import { postComment } from '../../../services/actions/posts'
+import { Link } from "react-router-dom";
 
 const CommentSection = ({ post }) => {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const CommentSection = ({ post }) => {
             <div className={classes.CommentInnerContainer}>
                 <Typography gutterBottom variant="h6">Comments</Typography>
                 {
-                    comments.map((comment, i) => (
+                    comments?.map((comment, i) => (
                         <Typography key={i} gutterBottom variant="subtitle1">
                             <strong>{comment.split(': ')[0]}</strong>
                             {comment.split(':')[1]}
@@ -36,6 +37,16 @@ const CommentSection = ({ post }) => {
                 }
                 <div ref={commentsRef} />
             </div>
+            {!user 
+            ? <Paper elevation={3} 
+            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px', borderRadius: '3px', 
+            height: '100%' }} 
+          >
+            <Link to={"/auth"} style={{ cursor: 'pointer' }}>
+                Sign in to comment on this post!
+            </Link>
+          </Paper>
+            :
             <div style={{ width: '70%' }}>
                 <Typography gutterBottom variant="h6">Share your views </Typography>
                 <TextField 
@@ -50,7 +61,7 @@ const CommentSection = ({ post }) => {
                 <Button style={{ marginTop: '10px' }} color="primary" fullWidth disabled={!comment} variant="contained" onClick={submitComment}>
                     Comment
                 </Button>
-            </div>
+            </div>}
         </div>
     </div>
   )

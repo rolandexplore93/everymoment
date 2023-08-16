@@ -12,6 +12,8 @@ const Form = ({ currentId, setcurrentid }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('profile'));
+
+  console.log('form')
   
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
@@ -77,15 +79,18 @@ const Form = ({ currentId, setcurrentid }) => {
   if (!user) {
     return (
       <div className="no-form-post"> 
-        <Link to={"/auth"} style={{ cursor: 'pointer' }}>
+        <p style={{ cursor: 'pointer' }} onClick={() => {
+            console.log('helo from form')
+            navigate('/auth')
+          }}>
             Sign in to create a post
-        </Link>
+        </p>
       </div>
     )
   }
 
   return (
-    <div>
+    <div  className="form__container">
       <div className="form" style={{ marginBottom: '10px'}}>
         <input
           type="text"

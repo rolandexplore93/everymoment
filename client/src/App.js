@@ -15,6 +15,7 @@ const App = () => {
   const [loader, setLoader] = useState(true);
   const [currentId, setCurrentId] = useState(null);
   const user = JSON.parse(localStorage.getItem('profile'));
+  console.log(user)
 
   // useEffect(() => {
   //   dispatch(getPost());
@@ -43,14 +44,13 @@ const App = () => {
               draggable
               pauseOnHover
             />
-            
             <Menubar />
             <Routes>
-              <Route path="/" exact element={<Navigate to="/posts" />} />
+              <Route path="/" exact element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />} />
               <Route path="/posts" index element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route>
               <Route path="/posts/search" index element={<pages.Home currentId={currentId} setcurrentid={setCurrentId} />}></Route>
               <Route path="/posts/:id" element={<secondaryComponents.PostDetails />} ></Route>
-              <Route path="/auth" element={(!user ? <pages.Auth /> : <Navigate to='/posts' />)}></Route>
+              <Route path="/auth" element={(!user && <pages.Auth /> )}></Route>
             </Routes>
           </div>
         </BrowserRouter>
